@@ -20,5 +20,13 @@ public class LoginController {
 	@RequestMapping("login")
 	public String login(String userName,String password){
 		
+		
+		return "login";
+	}
+	@RequestMapping("logon")
+	public String logon(String userName,String password){
+		
+		
+		return "index";
 	}
 }
