@@ -1,6 +1,13 @@
 package com.mission.shop.view.user.controller;
 
+import com.mission.shop.user.common.constants.UserConstants;
+import com.mission.shop.user.dao.model.User;
+import com.mission.shop.user.service.user.UserLoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**   
@@ -14,19 +21,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("")
 public class LoginController {
 
-//	@Autowired
-//	private 
+
+
+    @Autowired
+    private UserLoginService  userLoginService;
 	
 	@RequestMapping("login")
-	public String login(String userName,String password){
-		
+	public String login(){
+
 		
 		return "login";
 	}
 	@RequestMapping("logon")
-	public String logon(String userName,String password){
-		
-		
+	public String logon(String userName,String password,HttpServletRequest request,ModelMap modelMap){
+        User user = userLoginService.login(userName,password);
+        if(user==null){
+            modelMap.addAttribute("error","用户名或密码错误");
+            modelMap.addAttribute("userName",userName);
+            return "login";
+        }
+        request.getSession().setAttribute(UserConstants.SESSION_USER,user);
 		return "index";
 	}
 }

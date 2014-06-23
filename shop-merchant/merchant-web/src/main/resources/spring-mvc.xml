@@ -9,8 +9,17 @@
 	
 
 	<context:component-scan base-package="com.mission.shop.admin.web.controller" />
-	
-	<import resource="classpath:merchant-product-controller.xml"/>
+
+    <bean id="configBean"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config/database.properties</value>
+            </list>
+        </property>
+    </bean>
+	<import resource="classpath:merchant-controller-product.xml"/>
+	<import resource="classpath:merchant-controller-order.xml"/>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/" p:suffix=".jsp">
