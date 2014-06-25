@@ -6,7 +6,7 @@
 
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>open-web</param-value>
+		<param-value>view-web</param-value>
 	</context-param>
 
 	<!-- 【字符集过滤】 -->

@@ -3,63 +3,56 @@ package com.mission.shop.base.common.utils;
 import java.io.IOException;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.mission.shop.base.common.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mission.shop.base.common.exception.SystemException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * 修改与2012-4-27
+ * 
+
+ */
 public class JsonUtil {
+    final static Logger LOG = LoggerFactory.getLogger(JsonUtil.class);
 
-	public static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
-	
-	public static String objectToJson(Object bean) {
-		try {
-			// JsonFactory jsonFactory = new MappingJsonFactory();
-			ObjectMapper objectMapper = new ObjectMapper();
-			// ByteArrayOutputStream out = new ByteArrayOutputStream();
-			// JsonGenerator generator = jsonFactory.createJsonGenerator(out,
-			// JsonEncoding.UTF8);
-			objectMapper.getSerializationConfig().setSerializationInclusion(
-					JsonSerialize.Inclusion.NON_NULL);
-			String json = objectMapper.writeValueAsString(bean);
-			return json;
-			// byte[] data = out.toByteArray();
-			// out.close();
-			// return new String(data, "UTF-8");
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e, JsonUtil.class);
-		}
-		return null;
-	}
+    public static String objectToJson(Object bean) {
+        try {
+            ObjectMapper om = new ObjectMapper();
+            String json = om.writeValueAsString(bean);
+            return json;
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+            throw new SystemException(e);
+        }
+    }
 
-	public static Map<?, ?> jsonToMap(String json) throws SystemException {
-		try {
-			if (StringUtils.isEmpty(json)) {
-				return null;
-			}
-			ObjectMapper om = new ObjectMapper();
-			Map<?, ?> map = om.readValue(json, Map.class);
-			return map;
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e, JsonUtil.class);
-			throw new SystemException(e);
-		}
-	}
+    public static String object2Json(Object obj) {
+        return objectToJson(obj);
+    }
 
-	public static <T> T jsonToObject(String json, Class<T> classs)
-			throws SystemException {
-		try {
-			if (StringUtils.isEmpty(json)) {
-				return null;
-			}
-			ObjectMapper objectMapper = new ObjectMapper();
-			T map = objectMapper.readValue(json, classs);
-			return map;
-		} catch (Exception e) {
-			throw new SystemException(e);
-		}
-	}
+    public static Map<?, ?> jsonToObject(String json) {
+        try {
+            ObjectMapper om = new ObjectMapper();
+            Map<?, ?> map = om.readValue(json, Map.class);
+            return map;
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+            throw new SystemException(e);
+        }
+    }
+
+    public static <T> T json2Object(String json, Class<T> clz) {
+        try {
+            ObjectMapper om = new ObjectMapper();
+            T obj = om.readValue(json, clz);
+            return obj;
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+            throw new SystemException(e);
+        }
+    }
 
 }

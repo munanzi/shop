@@ -79,7 +79,7 @@
 		<version.freemarker>2.3.19</version.freemarker>
 
 		<version.bcprov>1.46</version.bcprov>
-		<version.jackson>1.9.8</version.jackson>
+		<version.jackson>2.2.2</version.jackson>
 		<version.json-lib>2.4</version.json-lib>
 		<version.json-rpc>1.0</version.json-rpc>
 		<version.json>20090211</version.json>
@@ -731,7 +731,21 @@
 				<artifactId>commons-dbcp</artifactId>
 				<version>${version.commons-dbcp}</version>
 			</dependency>
-
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-jaxb-annotations</artifactId>
+                <version>2.2.2</version>
+            </dependency>
 			<!-- rabbitmq -->
 			<dependency>
 				<groupId>com.rabbitmq</groupId>
@@ -905,12 +919,6 @@
 				<groupId>org.dbunit</groupId>
 				<artifactId>dbunit</artifactId>
 				<version>${version.dbunit}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.unitils</groupId>
-				<artifactId>unitils</artifactId>
-				<version>${version.unitils}</version>
 				<scope>test</scope>
 			</dependency>
 

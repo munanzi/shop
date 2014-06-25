@@ -1,0 +1,124 @@
+﻿form fieldset legend {
+    font-size: 16px;
+}
+form .item {
+    line-height: 22px;
+    margin: 18px 0;
+    position: relative;
+    vertical-align: middle;
+}
+form .item label.tit {
+    display: inline-block;
+    padding-right: 20px;
+    text-align: right;
+    width: 180px;
+}
+form .item input.txt {
+    border: 1px solid #F68D91;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    width: 250px;
+}
+form .item input.shortTxt {
+    width: 80px;
+}
+form .item textarea {
+    border: 1px solid #F68D91;
+    min-height: 100px;
+    vertical-align: top;
+    width: 450px;
+}
+form .item select {
+    border: 1px solid #F68D91;
+    padding: 8px 0;
+    vertical-align: middle;
+    width: 250px;
+}
+form .item .star {
+    color: #FF0000;
+}
+form .item .lightRedBtn {
+    margin-left: 10px;
+}
+form .item .tips {
+    color: #888888;
+    font-size: 12px;
+    line-height: 24px;
+    margin-left: 205px;
+}
+form .item .zoom {
+    background: none repeat scroll 0 0 #FFFDCA;
+    border: 1px solid #FACF66;
+    color: #F73200;
+    display: none;
+    font-size: 16px;
+    font-weight: bold;
+    height: 40px;
+    left: 203px;
+    line-height: 40px;
+    padding: 0 10px;
+    position: absolute;
+    top: -46px;
+}
+form .item .zoom span {
+    margin-right: 10px;
+}
+form .item input.date {
+    background: url("../images/icons/date.png") no-repeat 150px center;
+    width: 180px;
+}
+form .item .dif {
+    float: left;
+}
+form .item .dif .tit {
+    padding: 5px;
+}
+form .item .dif .tip {
+    color: #ED1B23;
+    font-size: 12px;
+    margin-left: 2px;
+}
+.fliter form .item .tit {
+    width: 113px;
+}
+.fliter form .item input.txt, .fliter form .item select {
+    border: 1px solid #F68D91;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    width: 180px;
+}
+.fliter form .item select {
+    padding: 4px 0;
+}
+
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    margin: 0 10px !important;
+    vertical-align: middle;
+    width: 35% !important;
+    font-size: 12px!important;
+}
+
+
+.jogger a {
+    background: none repeat scroll 0 0 #EE4E4E;
+    color: #FFFFFF;
+    margin-right: 5px;
+    padding: 4px 10px;
+}
+.jogger a:hover {
+    background: none repeat scroll 0 0 #DE1818;
+    color: #FFFFFF;
+}
+.jogger a:active {
+    background: none repeat scroll 0 0 #DE1818;
+    color: #FFFFFF;
+}
+.jogger a.current,
+.jogger span.current {
+    background: none repeat scroll 0 0 #F6EFCC;
+    color: #6D643C;
+    margin: 2px;
+}

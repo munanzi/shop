@@ -35,6 +35,7 @@
 				<artifactId>view-controller-user</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 </project>

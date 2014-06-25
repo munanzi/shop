@@ -14,8 +14,8 @@
 	<modules>
 		<module>product-dao</module>
 		<module>product-service-impl</module>
-		<module>product-controller</module>
 		<module>product-service</module>
+		<module>product-common</module>
 	</modules>
 
 	<dependencies>

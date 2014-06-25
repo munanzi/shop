@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mission.shop.base.common.threadlocal.CurrentUser;
 import com.mission.shop.base.common.threadlocal.ThreadLocalUtils;
+import com.mission.shop.user.common.constants.UserConstants;
 import com.mission.shop.user.dao.model.User;
 
 /**
@@ -33,7 +34,7 @@ public class AutoSetThreadLocalVariableFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
 
         // 获取当前登录用户
-        User user = (User) req.getSession().getAttribute("SESSION_USER");
+        User user = (User) req.getSession().getAttribute(UserConstants.SESSION_USER);
 
         CurrentUser currentUser = new CurrentUser();
         currentUser.setIp(getIp(req));

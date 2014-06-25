@@ -2,7 +2,7 @@ package com.mission.shop.base.common.exception;
 
 import java.io.Serializable;
 
-public class SystemException extends Exception implements Serializable {
+public class SystemException extends RuntimeException implements Serializable {
 
 	/**
 	 * 

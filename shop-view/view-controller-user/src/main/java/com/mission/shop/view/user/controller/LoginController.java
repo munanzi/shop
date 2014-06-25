@@ -4,6 +4,7 @@ import com.mission.shop.user.common.constants.UserConstants;
 import com.mission.shop.user.dao.model.User;
 import com.mission.shop.user.service.user.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,9 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @RequestMapping("")
+@Controller
 public class LoginController {
-
-
 
     @Autowired
     private UserLoginService  userLoginService;
@@ -41,6 +41,7 @@ public class LoginController {
             return "login";
         }
         request.getSession().setAttribute(UserConstants.SESSION_USER,user);
+        modelMap.addAttribute("userName",userName);
 		return "index";
 	}
 }

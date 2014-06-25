@@ -1,0 +1,214 @@
+html{
+	height: 100%;
+}
+body{
+	font-family: "Î¢ÈíÑÅºÚ";
+	height: 100%;
+	font-size: 14px;
+	overflow-y: hidden;
+}
+
+.topFrame{
+	height: 97px;
+	padding: 0 20px;
+	border-bottom:1px solid #b4b4b4;
+	background: url(../images/layouts/top.jpg);
+	text-align: right;
+	overflow: hidden;
+	position: relative;
+	min-width: 1027px;
+}
+.topFrame h1{
+	float: left;
+}
+.topFrame span.topLinkGroup{
+	position: absolute;
+	right: 30px;
+	bottom: 10px;
+}
+
+.topFrame span.topLinkGroup a,
+.topFrame span.topLinkGroup em{
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+	margin:0 10px;
+	color: #000;
+	font-size: 16px;
+}
+.topFrame span.topLinkGroup a:hover{
+	text-decoration: underline;
+}
+
+.topFrame span.topLinkGroup a.back{
+	background-image: url(../images/icons/undo.png);
+}
+.topFrame span.topLinkGroup a.logout{
+	background-image: url(../images/icons/indent_decrease.png);
+}
+.topFrame span.topLinkGroup a.resetpass{
+	background-image: url(../images/icons/wrench_plus.png);
+}
+.topFrame span.topLinkGroup em.user{
+	background-image: url(../images/icons/user.png);
+}
+.topFrame span.topLinkGroup em.tel{
+	background-image: url(../images/icons/phone.png);
+}
+
+.main{
+	background: url(../images/layouts/left.jpg) repeat-y;
+	min-height: 400px;
+	overflow-y: auto;
+}
+.leftFrame{
+	height: 500px;
+	width: 207px;
+	color: #fff;
+	font-size: 16px;
+	padding-top: 25px;
+	position: absolute;
+	left: 0;
+	zoom: 1;
+}
+
+.leftFrame dt{
+	height: 42px;
+	line-height: 42px;
+	padding: 0 20px;
+	background: url(../images/buttons/leftNav.jpg) repeat-x;
+	border: 1px solid #6b0800;
+}
+.leftFrame dt strong{
+	padding-left: 35px;
+	line-height: 42px;
+	display: block;
+}
+
+.leftFrame dt strong.search{
+	background: url(../images/icons/zoom.png) no-repeat left center;
+}
+.leftFrame dt strong.download{
+	background: url(../images/icons/download.png) no-repeat left center;
+}
+
+.leftFrame dd{
+	line-height: 60px;
+	padding-left: 57px;
+	background: url(../images/icons/play.gif) no-repeat 30px center;
+}
+
+.leftFrame dd a{
+	color: #000;
+}
+.leftFrame dd.cur a,
+.leftFrame dd a:hover{
+	color: #A00900
+}
+
+.rightFrame{
+	margin-left: 207px;
+	min-width: 860px;
+	padding-bottom: 30px;
+}
+.blockTit{
+	background: url(../images/layouts/tit.jpg);
+	height: 41px;
+	line-height: 41px;
+	border-bottom:1px solid #b4b4b4;
+	padding-left: 15px;
+	font-size: 16px;
+}
+
+.blockTit a{
+	color: #000;
+}
+
+
+.longTb{
+	min-width: 1300px;
+}
+
+.longTbWrap{
+	overflow-x: auto;
+	min-width: 800px;
+}
+
+
+.dataList{
+	width: 100%;
+	border:1px solid #d3d3d3;
+	border-collapse: collapse;
+}
+
+
+.dataList th,
+.dataList td{
+	border-top:1px solid #d3d3d3;
+	border-bottom:1px solid #d3d3d3;
+	padding:6px 5px;
+}
+
+.dataList th{
+	background: url(../images/layouts/th.jpg) repeat-x left top #e8e8e8;
+}
+
+.dataList .zebra td{
+	background: #f0f0f0;
+}
+
+.copyright{
+	text-align: center;
+	background: #dcdcdc;
+	color: #666;
+	height: 40px;
+	margin-top: -40px;
+	line-height: 40px;
+	z-index: 10;
+	position: absolute;
+	width: 100%;
+}
+.whiteMain{
+	margin: 0 auto;
+}
+
+.sBlock{
+	width: 510px;
+	border: 1px solid #ccc;
+	background: #f0f0f0;
+	margin: 100px auto;
+}
+
+.sBlock h2{
+	line-height: 40px;
+	font-weight: bold;
+	font-size: 16px;
+	margin-left: 30px;
+	padding-top: 10px;
+}
+
+.successPanel{
+	width: 510px;
+	margin: 100px auto;
+	padding: 20px;
+	background: #deffd6;
+	border:1px solid #b6dba6;
+	color: #237500
+}
+
+.faildPanel h2,
+.successPanel h2{
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
+.faildPanel{
+	background: #FFF1F0;
+	border:1px solid rgba(216, 80, 48, 0.3);
+	width: 510px;
+	margin: 100px auto;
+	padding: 20px;
+	color: #D85030
+}
