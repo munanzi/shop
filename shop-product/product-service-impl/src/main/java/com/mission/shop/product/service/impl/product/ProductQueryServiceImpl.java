@@ -5,6 +5,7 @@ import com.mission.shop.product.common.code.ProductStatus;
 import com.mission.shop.product.dao.mapper.ProductMapper;
 import com.mission.shop.product.dao.model.Product;
 import com.mission.shop.product.dao.model.ProductExample;
+import com.mission.shop.product.service.product.FullProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,8 @@ public class ProductQueryServiceImpl implements ProductQueryService{
     @Override
     public Product QueryProduct(Long productId, ProductStatus status) {
         ProductExample example = new ProductExample();
-        example.createCriteria().andProductIdEqualTo(productId).andStatusEqualTo(status.getCode()) ;
+        example.createCriteria().andProductIdEqualTo(productId)
+                .andStatusEqualTo(status.getCode()) ;
         List<Product> list = productMapper.selectByExample(example);
         if(list.isEmpty()){
             return null;
@@ -45,6 +47,7 @@ public class ProductQueryServiceImpl implements ProductQueryService{
         }
 
     }
+
 
 
 }

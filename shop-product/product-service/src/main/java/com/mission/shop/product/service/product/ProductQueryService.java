@@ -26,5 +26,4 @@ public interface ProductQueryService {
      */
     public Product QueryProduct(Long productId,ProductStatus status);
 
-
 }
