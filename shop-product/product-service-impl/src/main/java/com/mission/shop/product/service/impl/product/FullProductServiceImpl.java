@@ -41,7 +41,7 @@ public class FullProductServiceImpl implements FullProductService {
         Product product = productQueryService.QueryProduct(productId);
         ProductDetail productDetail = productDetailService.queryByProductId(productId);
         List<ProductComment> commentList = productCommentService.queryByProductId(productId);
-        List<ProductAttr> normalAttrlist =  productAttrService.queryNormalAttrByProductId(productId);
+        List<ProductAttr> normalAttrlist =  productAttrService.queryUsalAttrByProductId(productId);
         List<ProductAttr> specAttrlist =  productAttrService.querySpecAttrByProductId(productId);
 
         fullProduct.setProduct(product);

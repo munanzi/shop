@@ -34,7 +34,7 @@ public class ProductAttrServiceImpl implements ProductAttrService {
     
 
     @Override
-    public List<ProductAttr> queryNormalAttrByProductId(Long productId) {
+    public List<ProductAttr> queryUsalAttrByProductId(Long productId) {
 
         ProductAttrExample example = new ProductAttrExample();
         example.createCriteria().andProductIdEqualTo(productId)
@@ -52,20 +52,26 @@ public class ProductAttrServiceImpl implements ProductAttrService {
         return productAttrMapper.selectByExample(example);
     }
     
-    public Map<String,List<String>> queryAttrGroupByProductId(Long productId)throws BusinessException{
+    public Map<String,List<ProductAttr>> queryGroupAttrsByProductId(Long productId)throws BusinessException{
     	long kindId = productQueryService.QueryProduct(productId).getKindId();
     	
     	List<AttrGroup> list = attrGroupQueryService.queryAttrGroupByKindId(kindId);
-    	Map<String,List<String>> map = new HashMap<String,List<String>>();
+    	Map<String,List<ProductAttr>> map = new HashMap<String,List<ProductAttr>>();
+
 		for(AttrGroup attrGroup: list){
-			
+            List<ProductAttr> attrList = queryProductAttrByGroupId(attrGroup.getAttrGroupId());
+            map.put(attrGroup.getGroupName(),attrList);
 		}
-    	ProductAttrExample example = new ProductAttrExample();
-        example.createCriteria().andProductIdEqualTo(productId)
+
+        return map;
+    }
+
+    public List<ProductAttr> queryProductAttrByGroupId(Long groupId){
+
+        ProductAttrExample example = new ProductAttrExample();
+        example.createCriteria().andAttrGroupIdEqualTo(groupId)
                 .andAttrTypeNotEqualTo(ProductAttrType.SPEC_ATTR.getCode());
         example.setOrderByClause(" sort_order ");
-        
-        
-        List<ProductAttr> list =  productAttrMapper.selectByExample(example);
+        return productAttrMapper.selectByExample(example);
     }
 }
