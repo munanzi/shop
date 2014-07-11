@@ -27,7 +27,7 @@ public class ProductController {
     private  final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @RequestMapping("product")
+    @RequestMapping("detail")
     public String detail(Long productId,ModelMap model){
         try{
             FullProduct fullProduct = fullProductService.queryFullProduct(productId);

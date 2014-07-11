@@ -7,7 +7,5 @@ package com.mission.shop.product.common.constants;
  */
 public class ProductConstants {
 
-    //规格属性标志 productattr 表 is_spec_attr 字段
-    public  static final String SPEC_ATTR = "y";
 
 }

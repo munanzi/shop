@@ -42,6 +42,6 @@ public class LoginController {
         }
         request.getSession().setAttribute(UserConstants.SESSION_USER,user);
         modelMap.addAttribute("userName",userName);
-		return "index";
+		return "forward:category/index.htm";
 	}
 }

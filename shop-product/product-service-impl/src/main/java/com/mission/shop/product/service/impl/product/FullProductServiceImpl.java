@@ -49,7 +49,7 @@ public class FullProductServiceImpl implements FullProductService {
         fullProduct.setCommentList(commentList);
         fullProduct.setNormalAttrList(normalAttrlist);
         fullProduct.setNormalAttrList(specAttrlist);
-        return null;
+        return fullProduct;
     }
 
 }

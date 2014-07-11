@@ -46,7 +46,7 @@ hello ${userName}
             <c:if test="${product != null }">
                 <tr>
                     <td>
-                        <a href="${ctx}/product/detail?productId=${product['productId']}" >${product['productName']}</a>
+                        <a href="${ctx}/product/detail.htm?productId=${product['productId']}" >${product['productName']}</a>
 
                         ${product['minPrice']} -    ${product['maxPrice']}
 

@@ -59,9 +59,16 @@
 <!--      <table schema=""   tableName="product_cat" domainObjectName=""> -->
 <!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
 <!--     </table> -->
-     <table schema=""   tableName="product_comment" domainObjectName="">
-           <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+     <table schema=""   tableName="attr_group" domainObjectName="">
+           <generatedKey column="attr_group_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
+<!--      <table schema=""   tableName="attribute" domainObjectName=""> -->
+<!--            <generatedKey column="attr_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
+<!--     </table> -->
+<!--      <table schema=""   tableName="product_attr" domainObjectName=""> -->
+<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
+<!--     </table> -->
+     
 <!--      <table schema=""   tableName="product_detail" domainObjectName=""> -->
 <!--            <generatedKey column="detail_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
 <!--     </table> -->

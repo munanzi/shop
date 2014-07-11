@@ -20,7 +20,7 @@
 <body>
 
 <form name="UserLoginForm" action="logon.htm" method="post">
-    username:<input id="userName" name="userName" value="${userName}"/>
+    username:<input id="userName" name="userName" value="hexizheng"/>
     <br/>
     password:<input id="password" name="password" value="${password}"/>
     <br/>
