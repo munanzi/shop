@@ -2,10 +2,10 @@ package com.mission.shop.product.service.impl.attgroup;
 
 import java.util.List;
 
+import com.mission.shop.product.common.constants.ProductConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mission.shop.product.common.code.AttrGroupStatus;
 import com.mission.shop.product.dao.mapper.AttrGroupMapper;
 import com.mission.shop.product.dao.model.AttrGroup;
 import com.mission.shop.product.dao.model.AttrGroupExample;
@@ -27,7 +27,7 @@ public class AttrGroupQueryServiceImpl implements AttrGroupQueryService {
 		
 		AttrGroupExample example =new AttrGroupExample();
 		example.createCriteria().andKindIdEqualTo(kindId)
-						.andStatusEqualTo(AttrGroupStatus.NORMAL.getCode());
+						.andStatusEqualTo(ProductConstants.NORMAL_STATUS);
 		return attrGroupMapper.selectByExample(example);
 	}
 

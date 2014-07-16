@@ -1,6 +1,5 @@
 package com.mission.shop.product.service.impl.productcomment;
 
-import com.mission.shop.product.common.code.ProductCommentStatus;
 import com.mission.shop.product.dao.mapper.ProductCommentMapper;
 import com.mission.shop.product.dao.model.ProductComment;
 import com.mission.shop.product.dao.model.ProductCommentExample;
@@ -23,7 +22,7 @@ public class ProductCommentServiceImpl implements ProductCommentService {
 
     @Override
     public List<ProductComment> queryByProductId(Long productId) {
-
+        //TODO  分页
         ProductCommentExample example = new ProductCommentExample();
         example.createCriteria().andProductIdEqualTo(productId)
                 .andStatusEqualTo(ProductCommentStatus.NORMAL.getCode());

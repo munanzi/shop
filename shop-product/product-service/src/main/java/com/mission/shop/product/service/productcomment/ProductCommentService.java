@@ -11,5 +11,10 @@ import java.util.List;
  */
 public interface ProductCommentService {
 
+    /**
+     * 获取评论列表
+     * @param productId
+     * @return
+     */
     public List<ProductComment> queryByProductId(Long productId);
 }

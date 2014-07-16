@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<%@include file="../common/head.jsp" %>
 <!DOCTYPE HTML>
 <html lang="zh-cn">
 <head>
@@ -14,24 +11,49 @@
 
 
     <script>
+        function buy(){
+
+        }
+
+        function addCart(){
+
+        }
     </script>
 
 </head>
 <body>
+<input type="hidden" id="goodsId" name="goodsId" >
+      <div style="text-align:center; margin-left:auto; margin-right:auto">
+${fullProduct.product.productTitle}
+<br/>
+<br/>
 
+              价格： ${fullProduct.product.minPrice} - ${fullProduct.product.maxPrice}
+    <br/>
+              销量：  ${fullProduct.product.sales}
+    <c:if test="${fullProduct.product.sales != fullProduct.goods.sales }">
+                ,此款销量：${fullProduct.goods.sales}
+    </c:if>
+    <br/>
+              库存 ：  ${fullProduct.goods.stock}
+    <br/>
+              累计评价：   ${fullProduct.product.commentTimes}
+    <br/>
+              商品评分     ${fullProduct.product.score}
+<br/>
+<br/>
+<br/>
 
-hello ${userName}
-               ${fullProduct.product.minPrice} - ${fullProduct.product.maxPrice}
-
-
-<table>
-
-    <c:if test="${catList != null }">
-        <c:forEach var="category" begin="0" end="20" items="${catList}">
-            <c:if test="${category != null }">
+<table border="1" style="text-align:center; margin-left:auto; margin-right:auto">
+    规格属性：<br/>
+    <c:if test="${fullProduct.specAttrList != null }">
+        <c:forEach var="attr" begin="0" end="20" items="${fullProduct.specAttrList}">
+            <c:if test="${attr != null }">
                 <tr>
-                    <td>
-                        <a href="${ctx}/category/index.htm?catId=${category['catId']}" >${category['name']}</a>
+                    <td>  ${attr.attrName} :
+                        <c:forEach var="attrValue" begin="0" end="20" items="${attr.attrValues}">
+                                    <a href="#" id="${attr.id}" onclick="selectAttr(this,${attrValue})" > ${attrValue}</a>
+                        </c:forEach>
                     </td>
                 </tr>
             </c:if>
@@ -39,29 +61,50 @@ hello ${userName}
     </c:if>
 
 </table>
-
-<table>
-
-    <c:if test="${productList != null }">
-        <c:forEach var="product" begin="0" end="20" items="${productList}">
-            <c:if test="${product != null }">
+<br/>
+    <input type="button" id="buy" onclick="buy"/>
+    <input type="button" id="addCart" onclick="addCart"/>
+<br/>
+<br/>
+<table  border="1" style="text-align:center; margin-left:auto; margin-right:auto">
+    产品介绍：
+    <c:if test="${fullProduct.usualAttrList!= null }">
+        <c:forEach var="productAttr" begin="0" end="20" items="${fullProduct.usualAttrList}">
+            <c:if test="${productAttr != null }">
                 <tr>
                     <td>
-                        <a href="${ctx}/product/detail?productId=${product['productId']}" >${product['productName']}</a>
-
-                            ${product['minPrice']} -    ${product['maxPrice']}
-
-
-                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${ctx}/${product.picUrl}">
+                            ${productAttr.attrName} : ${productAttr.attrValue}
                     </td>
-
                 </tr>
             </c:if>
         </c:forEach>
     </c:if>
 
 </table>
+<br/>
+<br/>
+<br/>
+<table  border="1" style="text-align:center; margin-left:auto; margin-right:auto">
+    参数列表：
+    <c:if test="${fullProduct.groupAttrsMap!= null }">
+        <c:forEach var="map" begin="0" end="20" items="${fullProduct.groupAttrsMap}">
+            <c:if test="${map != null }">
+                <tr >
+                    <td colspan="2"  style="background:#808080">
+                            ${map.key}
+                    </td>
+                </tr>
+                <c:forEach var="productAttr" begin="0" end="20" items="${map.value}">
+                    <tr>
+                        <td> ${productAttr.attrName}</td> <td>${productAttr.attrValue}</td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+        </c:forEach>
+    </c:if>
 
+</table>
 
+</div>
 </body>
 </html>

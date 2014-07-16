@@ -1,10 +1,10 @@
 package com.mission.shop.product.service.impl.product;
 
 import com.mission.shop.base.common.exception.BusinessException;
-import com.mission.shop.product.dao.model.Product;
-import com.mission.shop.product.dao.model.ProductAttr;
-import com.mission.shop.product.dao.model.ProductComment;
-import com.mission.shop.product.dao.model.ProductDetail;
+import com.mission.shop.base.common.utils.JsonUtil;
+import com.mission.shop.base.common.utils.StringUtils;
+import com.mission.shop.product.dao.model.*;
+import com.mission.shop.product.service.goods.GoodsQueryService;
 import com.mission.shop.product.service.product.FullProduct;
 import com.mission.shop.product.service.product.FullProductService;
 import com.mission.shop.product.service.product.ProductQueryService;
@@ -14,7 +14,9 @@ import com.mission.shop.product.service.productdetail.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: hexizheng@163.com
@@ -32,23 +34,33 @@ public class FullProductServiceImpl implements FullProductService {
     private ProductAttrService productAttrService;
     @Autowired
     private ProductCommentService productCommentService;
-
+    @Autowired
+    private GoodsQueryService goodsQueryService;
 
     @Override
     public FullProduct queryFullProduct(Long productId) throws BusinessException {
 
         FullProduct fullProduct = new FullProduct();
         Product product = productQueryService.QueryProduct(productId);
+//        Goods goods = goodsQueryService.queryMostSailByProductId(productId);
         ProductDetail productDetail = productDetailService.queryByProductId(productId);
         List<ProductComment> commentList = productCommentService.queryByProductId(productId);
-        List<ProductAttr> normalAttrlist =  productAttrService.queryUsalAttrByProductId(productId);
-        List<ProductAttr> specAttrlist =  productAttrService.querySpecAttrByProductId(productId);
-
+        List<ProductAttr> usualAttrList =  productAttrService.queryUsualAttrByProductId(productId);
+        List<ProductAttr> specAttrList =  productAttrService.querySpecAttrByProductId(productId);
+        Map<String,List<ProductAttr>> attrMap = productAttrService.queryGroupAttrsByProductId(productId);
         fullProduct.setProduct(product);
         fullProduct.setProductDetail(productDetail);
         fullProduct.setCommentList(commentList);
-        fullProduct.setNormalAttrList(normalAttrlist);
-        fullProduct.setNormalAttrList(specAttrlist);
+        fullProduct.setUsualAttrList(usualAttrList);
+        fullProduct.setSpecAttrList(specAttrList);
+        fullProduct.setGroupAttrsMap(attrMap);
+//        fullProduct.setGoods(goods);
+//        if(StringUtils.isEmpty(goods.getSpec()))  {
+//            fullProduct.setSpecMap(new HashMap()) ;
+//        } else{
+//            Map map = JsonUtil.jsonToObject(goods.getSpec());
+//            fullProduct.setSpecMap(map);
+//        }
         return fullProduct;
     }
 

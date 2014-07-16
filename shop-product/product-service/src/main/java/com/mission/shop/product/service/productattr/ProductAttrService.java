@@ -18,7 +18,7 @@ public interface ProductAttrService {
      * @param productId
      * @return 常用属性列表
      */
-    public List<ProductAttr> queryUsalAttrByProductId(Long productId);
+    public List<ProductAttr> queryUsualAttrByProductId(Long productId);
 
     /**
      * 查询商品规格属性

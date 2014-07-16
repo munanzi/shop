@@ -51,7 +51,7 @@ hello ${userName}
                         ${product['minPrice']} -    ${product['maxPrice']}
 
 
-                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${ctx}/${product.picUrl}">
+                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${imgUrl}/${product.picUrl}">
                     </td>
 
                 </tr>

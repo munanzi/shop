@@ -1,11 +1,9 @@
 package com.mission.shop.product.service.product;
 
-import com.mission.shop.product.dao.model.Product;
-import com.mission.shop.product.dao.model.ProductAttr;
-import com.mission.shop.product.dao.model.ProductComment;
-import com.mission.shop.product.dao.model.ProductDetail;
+import com.mission.shop.product.dao.model.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: hexizheng@163.com
@@ -15,10 +13,15 @@ import java.util.List;
 public class FullProduct {
 
     private Product product;
+    private Goods goods;
+    private Map specMap;
     private ProductDetail productDetail;
-    private List<ProductAttr> normalAttrList;
+    private List<ProductAttr> usualAttrList;
+    private Map<String,List<ProductAttr>> groupAttrsMap;
     private List<ProductAttr> specAttrList;
     private List<ProductComment> commentList;
+    private List<PackingList> packingList;
+    private List<ProductPic> productPic;
 
 
     public Product getProduct() {
@@ -29,6 +32,22 @@ public class FullProduct {
         this.product = product;
     }
 
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public Map getSpecMap() {
+        return specMap;
+    }
+
+    public void setSpecMap(Map specMap) {
+        this.specMap = specMap;
+    }
+
     public ProductDetail getProductDetail() {
         return productDetail;
     }
@@ -37,12 +56,20 @@ public class FullProduct {
         this.productDetail = productDetail;
     }
 
-    public List<ProductAttr> getNormalAttrList() {
-        return normalAttrList;
+    public List<ProductAttr> getUsualAttrList() {
+        return usualAttrList;
     }
 
-    public void setNormalAttrList(List<ProductAttr> normalAttrList) {
-        this.normalAttrList = normalAttrList;
+    public void setUsualAttrList(List<ProductAttr> usualAttrList) {
+        this.usualAttrList = usualAttrList;
+    }
+
+    public Map<String, List<ProductAttr>> getGroupAttrsMap() {
+        return groupAttrsMap;
+    }
+
+    public void setGroupAttrsMap(Map<String, List<ProductAttr>> groupAttrsMap) {
+        this.groupAttrsMap = groupAttrsMap;
     }
 
     public List<ProductAttr> getSpecAttrList() {

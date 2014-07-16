@@ -1,6 +1,7 @@
 package com.mission.shop.base.common.utils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.mission.shop.base.common.exception.SystemException;
@@ -53,6 +54,14 @@ public class JsonUtil {
             LOG.error(e.getMessage(), e);
             throw new SystemException(e);
         }
+    }
+
+    public static void main(String[] args){
+        Map map = new HashMap();
+        map.put("颜色","白");
+        map.put("网络","电信3G");
+
+        System.out.print(object2Json(map) ) ;
     }
 
 }

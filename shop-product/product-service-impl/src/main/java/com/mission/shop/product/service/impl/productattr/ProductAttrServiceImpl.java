@@ -34,7 +34,7 @@ public class ProductAttrServiceImpl implements ProductAttrService {
     
 
     @Override
-    public List<ProductAttr> queryUsalAttrByProductId(Long productId) {
+    public List<ProductAttr> queryUsualAttrByProductId(Long productId) {
 
         ProductAttrExample example = new ProductAttrExample();
         example.createCriteria().andProductIdEqualTo(productId)

@@ -51,6 +51,9 @@ public class ProductAttr implements Serializable {
 	 * @return  the value of product_attr.id
 	 * @mbggenerated  Thu Jul 10 21:41:41 CST 2014
 	 */
+    public String[] getAttrValues(){
+        return attrValue.split(",");
+    }
 	public Long getId() {
 		return id;
 	}
