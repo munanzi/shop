@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mission.shop.base.common.exception.BusinessException;
+import com.mission.shop.product.common.constants.ProductConstants;
 import com.mission.shop.product.dao.mapper.CategoryMapper;
 import com.mission.shop.product.dao.model.Category;
 import com.mission.shop.product.dao.model.CategoryExample;
@@ -25,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Category queryTopCategory() throws BusinessException {
 		CategoryExample example = new CategoryExample();
-		example.createCriteria().andLevelEqualTo(0).andStatusEqualTo(1000);
+		example.createCriteria().andLevelEqualTo(ProductConstants.PROUCT_CAT_TOP_LEVEL).andStatusEqualTo(ProductConstants.NORMAL_STATUS);
 		List<Category> list = categoryMapper.selectByExample(example);
 		if(list.isEmpty()){
 			throw new BusinessException("顶层商品分类为空");
@@ -40,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> queryCategoryByParent(Long parentId) {
 		CategoryExample example = new CategoryExample();
 		example.createCriteria().andParentIdEqualTo(parentId)
-		.andStatusEqualTo(1000);
+		.andStatusEqualTo(ProductConstants.NORMAL_STATUS);
 		example.setOrderByClause(" sort_order ");
 		return categoryMapper.selectByExample(example);
 	}

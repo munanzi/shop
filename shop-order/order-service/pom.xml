@@ -12,5 +12,9 @@
 			<groupId>com.mission.shop</groupId>
 			<artifactId>order-dao</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.mission.shop</groupId>
+			<artifactId>order-common</artifactId>
+		</dependency>
 	</dependencies>
 </project>

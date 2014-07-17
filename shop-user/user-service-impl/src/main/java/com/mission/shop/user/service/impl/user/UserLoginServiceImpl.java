@@ -24,7 +24,8 @@ public class UserLoginServiceImpl  implements UserLoginService {
     @Override
     public User login(String userName, String password) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andUserNameEqualTo(userName).andStatusEqualTo(UserStatus.NORMAL.getCode());
+        userExample.createCriteria().andUserNameEqualTo(userName)
+                .andStatusEqualTo(UserStatus.NORMAL.getCode());
         List<User> list = userMapper.selectByExample(userExample);
         if(list.isEmpty()){
             return null;

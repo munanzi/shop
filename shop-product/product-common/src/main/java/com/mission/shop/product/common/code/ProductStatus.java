@@ -7,27 +7,27 @@ package com.mission.shop.product.common.code;
  */
 public enum ProductStatus {
 
-    ON_SALE(1000,"上架"),
-    OFF_SALE(1001,"下架"),
-    INIT(1002,"初始"),
-    VERIFYING(1003,"待审核") ,
-    REFUSED(1004,"拒绝"),
-    DELETED(1005,"已删除");
+    ON_SALE((short)1,"上架"),
+    OFF_SALE((short)2,"下架"),
+    INIT((short)3,"初始"),
+    VERIFYING((short)4,"待审核") ,
+    REFUSED((short)5,"拒绝"),
+    DELETED((short)6,"已删除");
 
 
-    private int code;
+    private short code;
     private String name;
 
-    private ProductStatus(int code, String name) {
+    private ProductStatus(short code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public int getCode() {
+    public short getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(short code) {
         this.code = code;
     }
 

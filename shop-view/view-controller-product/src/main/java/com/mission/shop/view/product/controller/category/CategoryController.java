@@ -48,7 +48,7 @@ public class CategoryController {
                  model.addAttribute("userName",user.getUserName());
             }
 		}catch(BusinessException e){
-			
+			logger.error("category",e);
 			return "common/error";
 		}
 

@@ -5,15 +5,16 @@ MySQL - 5.1.50-community-log
 */
 /*!40101 SET NAMES utf8 */;
 
-create table `attr_group` (
-	`attr_group_id` bigint (20),
-	`kind_id` bigint (20),
-	`group_name` varchar (90),
-	`status` int (11)
+create table `packing_list` (
+	`id` bigint (20),
+	`product_id` bigint (20),
+	`goods_name` varchar (50),
+	`num` smallint (6),
+	`status` smallint (6),
+	`create_time` datetime ,
+	`update_time` datetime 
 ); 
-insert into `attr_group` (`attr_group_id`, `kind_id`, `group_name`, `status`) values('1','1','显示','1000');
-insert into `attr_group` (`attr_group_id`, `kind_id`, `group_name`, `status`) values('2','1','存储','1000');
-insert into `attr_group` (`attr_group_id`, `kind_id`, `group_name`, `status`) values('3','1','网络','1000');
-insert into `attr_group` (`attr_group_id`, `kind_id`, `group_name`, `status`) values('4','1','基本参数','1000');
-insert into `attr_group` (`attr_group_id`, `kind_id`, `group_name`, `status`) values('5','1','机身详情','1000');
-insert into `attr_group` (`attr_group_id`, `kind_id`, `group_name`, `status`) values('6','1','拍照功能','1000');
+insert into `packing_list` (`id`, `product_id`, `goods_name`, `num`, `status`, `create_time`, `update_time`) values('1','1','手机','1','1',NULL,NULL);
+insert into `packing_list` (`id`, `product_id`, `goods_name`, `num`, `status`, `create_time`, `update_time`) values('2','1','充电器','1','1',NULL,NULL);
+insert into `packing_list` (`id`, `product_id`, `goods_name`, `num`, `status`, `create_time`, `update_time`) values('3','1','耳机','1','1',NULL,NULL);
+insert into `packing_list` (`id`, `product_id`, `goods_name`, `num`, `status`, `create_time`, `update_time`) values('4','1','说明书','1','1',NULL,NULL);

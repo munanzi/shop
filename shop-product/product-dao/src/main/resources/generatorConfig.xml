@@ -35,52 +35,61 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-<!--      <table schema=""   tableName="attribute" domainObjectName=""> -->
-<!--            <generatedKey column="atrr_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="brand" domainObjectName=""> -->
-<!--            <generatedKey column="brand_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="category" domainObjectName=""> -->
-<!--            <generatedKey column="cat_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="pic_url" domainObjectName=""> -->
-<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="goods" domainObjectName=""> -->
-<!--            <generatedKey column="goods_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="product" domainObjectName=""> -->
-<!--            <generatedKey column="product_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="product_attr" domainObjectName=""> -->
-<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="product_cat" domainObjectName=""> -->
-<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
+     <table schema=""   tableName="attr_group" domainObjectName="">
+           <generatedKey column="attr_group_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="attribute" domainObjectName="">
+           <generatedKey column="attr_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="brand" domainObjectName="">
+           <generatedKey column="brand_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="category" domainObjectName="">
+           <generatedKey column="cat_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
      <table schema=""   tableName="product_pic" domainObjectName="">
            <generatedKey column="product_pic_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
-<!--      <table schema=""   tableName="goods" domainObjectName=""> -->
-<!--            <generatedKey column="goods_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="product_attr" domainObjectName=""> -->
-<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
+     <table schema=""   tableName="goods" domainObjectName="">
+           <generatedKey column="goods_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product" domainObjectName="">
+           <generatedKey column="product_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product_attr" domainObjectName="">
+           <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product_cat" domainObjectName="">
+           <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product_comment" domainObjectName="">
+           <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product_pic" domainObjectName="">
+           <generatedKey column="product_pic_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="goods" domainObjectName="">
+           <generatedKey column="goods_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product_attr" domainObjectName="">
+           <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
      
-<!--      <table schema=""   tableName="product_detail" domainObjectName=""> -->
-<!--            <generatedKey column="detail_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="product_kind" domainObjectName=""> -->
-<!--            <generatedKey column="kind_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="spec_attr" domainObjectName=""> -->
-<!--            <generatedKey column="spec_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-<!--      <table schema=""   tableName="shop" domainObjectName=""> -->
-<!--            <generatedKey column="shop_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
+     <table schema=""   tableName="product_detail" domainObjectName="">
+           <generatedKey column="detail_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="product_kind" domainObjectName="">
+           <generatedKey column="kind_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="spec_attr" domainObjectName="">
+           <generatedKey column="spec_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="shop" domainObjectName="">
+           <generatedKey column="shop_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
+     <table schema=""   tableName="packing_list" domainObjectName="">
+           <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+    </table>
     
   </context>
 </generatorConfiguration>

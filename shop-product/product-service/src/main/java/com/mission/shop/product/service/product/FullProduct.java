@@ -13,15 +13,16 @@ import java.util.Map;
 public class FullProduct {
 
     private Product product;
-    private Goods goods;
-    private Map specMap;
+//    private Goods goods;
+//    private Map specMap;
     private ProductDetail productDetail;
     private List<ProductAttr> usualAttrList;
     private Map<String,List<ProductAttr>> groupAttrsMap;
     private List<ProductAttr> specAttrList;
     private List<ProductComment> commentList;
     private List<PackingList> packingList;
-    private List<ProductPic> productPic;
+    private List<ProductPic> detailPicList;
+
 
 
     public Product getProduct() {
@@ -32,21 +33,21 @@ public class FullProduct {
         this.product = product;
     }
 
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Map getSpecMap() {
-        return specMap;
-    }
-
-    public void setSpecMap(Map specMap) {
-        this.specMap = specMap;
-    }
+//    public Goods getGoods() {
+//        return goods;
+//    }
+//
+//    public void setGoods(Goods goods) {
+//        this.goods = goods;
+//    }
+//
+//    public Map getSpecMap() {
+//        return specMap;
+//    }
+//
+//    public void setSpecMap(Map specMap) {
+//        this.specMap = specMap;
+//    }
 
     public ProductDetail getProductDetail() {
         return productDetail;
@@ -86,5 +87,21 @@ public class FullProduct {
 
     public void setCommentList(List<ProductComment> commentList) {
         this.commentList = commentList;
+    }
+
+    public List<PackingList> getPackingList() {
+        return packingList;
+    }
+
+    public void setPackingList(List<PackingList> packingList) {
+        this.packingList = packingList;
+    }
+
+    public List<ProductPic> getDetailPicList() {
+        return detailPicList;
+    }
+
+    public void setDetailPicList(List<ProductPic> detailPicList) {
+        this.detailPicList = detailPicList;
     }
 }

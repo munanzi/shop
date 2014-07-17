@@ -8,24 +8,24 @@ package com.mission.shop.product.common.code;
  */
 public enum ProductAttrType {
 
-    SPEC_ATTR(1,"规格属性"),
-    USUAL_ATTR(2,"常用属性"),
-    GENERAL_ATTR(3,"一般属性");
+    SPEC_ATTR((short)1,"规格属性"),
+    USUAL_ATTR((short)2,"常用属性"),
+    GENERAL_ATTR((short)3,"一般属性");
 
 
-    private int code;
+    private short code;
     private String name;
 
-    private ProductAttrType(int code, String name) {
+    private ProductAttrType(short code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public int getCode() {
+    public short getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(short code) {
         this.code = code;
     }
 

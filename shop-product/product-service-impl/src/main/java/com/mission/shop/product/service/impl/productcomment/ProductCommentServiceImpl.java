@@ -1,9 +1,11 @@
 package com.mission.shop.product.service.impl.productcomment;
 
+import com.mission.shop.product.common.constants.ProductConstants;
 import com.mission.shop.product.dao.mapper.ProductCommentMapper;
 import com.mission.shop.product.dao.model.ProductComment;
 import com.mission.shop.product.dao.model.ProductCommentExample;
 import com.mission.shop.product.service.productcomment.ProductCommentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class ProductCommentServiceImpl implements ProductCommentService {
         //TODO  分页
         ProductCommentExample example = new ProductCommentExample();
         example.createCriteria().andProductIdEqualTo(productId)
-                .andStatusEqualTo(ProductCommentStatus.NORMAL.getCode());
+                .andStatusEqualTo(ProductConstants.NORMAL_STATUS);
         return productCommentMapper.selectByExample(example);
     }
 }

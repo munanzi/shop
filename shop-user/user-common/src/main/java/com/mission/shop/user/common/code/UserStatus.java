@@ -7,23 +7,23 @@ package com.mission.shop.user.common.code;
  */
 public enum UserStatus {
 
-    NORMAL(1000,"正常"),
-    DELETED(1001,"已删除"),
-    BLACK_LIST(1002,"黑名单");
+    NORMAL((short)1,"正常"),
+    DELETED((short)2,"已删除"),
+    BLACK_LIST((short)3,"黑名单");
 
-    private int code;
+    private short code;
     private String name;
 
-    private UserStatus(int code, String name) {
+    private UserStatus(short code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public int getCode() {
+    public short getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(short code) {
         this.code = code;
     }
 

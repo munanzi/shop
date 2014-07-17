@@ -33,6 +33,11 @@
 				<artifactId>order-service-impl</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.mission.shop</groupId>
+				<artifactId>order-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>
