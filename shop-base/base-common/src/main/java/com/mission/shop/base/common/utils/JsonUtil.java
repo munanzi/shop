@@ -62,6 +62,9 @@ public class JsonUtil {
         map.put("网络","电信3G");
 
         System.out.print(object2Json(map) ) ;
+
+
+
     }
 
 }

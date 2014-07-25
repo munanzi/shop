@@ -15,6 +15,7 @@
 		<module>order-dao</module>
 		<module>order-service</module>
 		<module>order-service-impl</module>
+		<module>order-common</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

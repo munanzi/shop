@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:trans-service-test.xml"})
+@ContextConfiguration(locations = { "classpath:product-service-test.xml"})
 public abstract class ProductServiceTestBase extends AbstractTransactionalJUnit4SpringContextTests{
     private String sqlFile;
     

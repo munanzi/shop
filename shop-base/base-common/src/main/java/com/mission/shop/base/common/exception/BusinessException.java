@@ -1,5 +1,7 @@
 package com.mission.shop.base.common.exception;
 
+import org.springframework.util.StringUtils;
+
 /**
  * 业务异常
  * 
@@ -36,5 +38,12 @@ public class BusinessException extends Exception {
 
 	public String getBuisinessCode() {
 		return buisinessCode;
+	}
+	public boolean isExistCode(){
+		if(StringUtils.isEmpty(buisinessCode)){
+			return false;
+		}else{
+			return true;
+		}
 	}
 }

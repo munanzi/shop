@@ -62,6 +62,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.mission.shop</groupId>
+				<artifactId>user-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mission.shop</groupId>
 				<artifactId>user-dao</artifactId>
 				<version>${project.version}</version>
 			</dependency>

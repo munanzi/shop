@@ -16,12 +16,10 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:database.properties</value>
+                <value>classpath:database_test.properties</value>
             </list>
         </property>
     </bean>
 	<import resource="classpath:product-service.xml" />
-	
-	<context:component-scan base-package="com.mission.shop.product.service" />
 	
 </beans>

@@ -38,7 +38,7 @@
      <table schema=""   tableName="trade_order" domainObjectName="Order">
            <generatedKey column="order_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
-     <table schema=""   tableName="order_status" domainObjectName="">
+     <table schema=""   tableName="order_history_status" domainObjectName="">
            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
      <table schema=""   tableName="express" domainObjectName="">

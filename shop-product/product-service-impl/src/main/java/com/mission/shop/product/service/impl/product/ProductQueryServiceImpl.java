@@ -1,6 +1,7 @@
 package com.mission.shop.product.service.impl.product;
 
 import com.mission.shop.base.common.exception.BusinessException;
+import com.mission.shop.base.common.exception.SystemException;
 import com.mission.shop.product.common.code.ProductStatus;
 import com.mission.shop.product.dao.mapper.ProductMapper;
 import com.mission.shop.product.dao.model.Product;
@@ -26,7 +27,9 @@ public class ProductQueryServiceImpl implements ProductQueryService{
 //    }
 
     public Product QueryProduct(Long productId)throws BusinessException{
-
+        if(productId==null){
+            throw new SystemException("商品ID不能为空");
+        }
         Product product = productMapper.selectByPrimaryKey(productId);
         if(product==null){
             throw new BusinessException("商品不存在") ;

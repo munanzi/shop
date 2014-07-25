@@ -1,0 +1,84 @@
+package com.mission.shop.order.service.order;
+
+import com.mission.shop.order.common.code.InvoiceProductType;
+import com.mission.shop.order.common.code.InvoiceType;
+
+import java.util.*;
+
+/**
+ * 存放用户购买的商品及数量价格，发票，地址等
+ * User: hexizheng@163.com
+ * Date: 14-7-17
+ * Time: 下午7:17
+ */
+public class OrderPO {
+
+
+
+    private List<BuyedGoods> goodsList = new ArrayList<BuyedGoods>();
+
+    private Long addressId;
+
+    // 发票类型，增值税发票，普通发票等
+    private short invoiceType;
+
+    //发票商品类型
+    private short invoiceProductType;
+
+    private String invoiceTitle; //发票抬头
+
+    private int totalAmount;//下单页面显示的金额，用来跟计算的金额比较是否一致
+
+    //添加购买的商品
+    public void setGoods(BuyedGoods buyedGoods){
+        goodsList.add(buyedGoods);
+    }
+
+    public List<BuyedGoods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<BuyedGoods> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public int getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
+
+    public short getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(short invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public short getInvoiceProductType() {
+        return invoiceProductType;
+    }
+
+    public void setInvoiceProductType(short invoiceProductType) {
+        this.invoiceProductType = invoiceProductType;
+    }
+
+    public String getInvoiceTitle() {
+        return invoiceTitle;
+    }
+
+    public void setInvoiceTitle(String invoiceTitle) {
+        this.invoiceTitle = invoiceTitle;
+    }
+}

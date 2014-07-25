@@ -16,5 +16,6 @@
 			<groupId>com.mission.shop</groupId>
 			<artifactId>order-common</artifactId>
 		</dependency>
+        
 	</dependencies>
 </project>

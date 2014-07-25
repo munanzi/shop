@@ -12,7 +12,7 @@
 
     <script>
         function buy(){
-            document.buyForm.submit();
+            document.orderForm.submit();
         }
 
         function addCart(){
@@ -22,7 +22,11 @@
 
 </head>
 <body>
-<input type="hidden" id="goodsId" name="goodsId" >
+<form name="orderForm" action="${ctx}/order/buy.htm" method="post">
+<input type="hidden" id="goodsId" name="goodsId" value="1" >
+<input type="hidden" id="num" name="num" value="2" >
+<input type="hidden" id="price" name="price" value="159" >
+</form>
       <div style="text-align:center; margin-left:auto; margin-right:auto">
 ${fullProduct.product.productTitle}
 <br/>
@@ -62,7 +66,7 @@ ${fullProduct.product.productTitle}
 
 </table>
 <br/>
-    <input type="button" id="buy" value="立即购买" onclick="buy"/>
+    <input type="button" id="buy" value="立即购买" onclick="buy();"/>
     <input type="button" id="addCart" value="加入购物车" onclick="addCart"/>
 <br/>
     <form name="buyForm" action="order/buy.htm">

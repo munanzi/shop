@@ -1,8 +1,14 @@
 package com.mission.shop.product.service.impl.goods;
 
+import com.mission.shop.base.common.exception.BusinessException;
+import com.mission.shop.base.common.exception.SystemException;
+import com.mission.shop.product.common.code.ProductStatus;
+import com.mission.shop.product.common.constants.ProductConstants;
 import com.mission.shop.product.dao.mapper.GoodsMapper;
 import com.mission.shop.product.dao.model.Goods;
 import com.mission.shop.product.dao.model.GoodsExample;
+import com.mission.shop.product.dao.model.Product;
+import com.mission.shop.product.service.product.ProductQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +21,33 @@ public class GoodsQueryServiceImpl implements GoodsQueryService{
 
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private ProductQueryService productQueryService;
+
+    public Goods queryGoodsById(Long goodsId) throws BusinessException{
+        if(goodsId==null){
+            throw new SystemException("goodsId is null");
+        }
+        Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+        if(goods==null){
+            throw new BusinessException("商品不存在");
+        }
+        return goods;
+    }
+
+    public void checkGoodsStatus(Long goodsId) throws BusinessException{
+        Goods goods =   queryGoodsById(goodsId);
+        if(ProductConstants.NORMAL_STATUS !=goods.getStatus()) {
+            throw new BusinessException("此规格商品已下架");
+        }
+        if(goods.getStock()==0){
+            throw new BusinessException("商品已售完");
+        }
+        Product product = productQueryService.QueryProduct(goods.getProductId()) ;
+        if(!product.getStatus().equals(ProductStatus.ON_SALE.getCode())){
+            throw new BusinessException("商品已下架");
+        }
+    }
 
     public Goods queryMostSailByProductId(Long productId){
         //先找有库存中的销量最高的商品，如果全部都没有库存，则找销量最高的一个。
@@ -33,4 +66,10 @@ public class GoodsQueryServiceImpl implements GoodsQueryService{
             return list2.get(0);
         }
     }
+
+    public Product queryProductById(Long goodsId)throws BusinessException{
+        Goods goods = queryGoodsById(goodsId);
+        return productQueryService.QueryProduct(goods.getProductId());
+    }
+
 }
