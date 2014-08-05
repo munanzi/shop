@@ -1,6 +1,8 @@
 package com.mission.shop.order.common.returncode;
 
-public enum OrderReturnCode {
+import com.mission.shop.base.common.exception.ReturnCode;
+
+public enum OrderReturnCode implements ReturnCode{
 	
 	;
 	

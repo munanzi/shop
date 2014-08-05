@@ -39,18 +39,15 @@ public class CategoryController {
 	public String index(String catId,Model model){
 
         User user = ThreadLocalUtils.getUser(User.class);
-		try{
-			Category catetory = categoryService.queryTopCategory();
-			List<Category> list = categoryService.queryCategoryByParent(catetory.getCatId());
-            model.addAttribute("catetory",catetory);
-            model.addAttribute("catList",list);
-            if(user!=null){
-                 model.addAttribute("userName",user.getUserName());
-            }
-		}catch(BusinessException e){
-			logger.error("category",e);
-			return "common/error";
-		}
+		
+		Category catetory = categoryService.queryTopCategory();
+		List<Category> catList = categoryService.queryCategoryByParent(catetory.getCatId());
+        model.addAttribute("catetory",catetory);
+        model.addAttribute("catList",catList);
+        if(user!=null){
+             model.addAttribute("userName",user.getUserName());
+        }
+		
 
         if(StringUtils.isNotEmpty(catId)){
             List<Product> list = productCatService.queryProductByCatId(Long.parseLong(catId));

@@ -14,6 +14,8 @@ public class BusinessException extends Exception {
 
 	private String buisinessCode;
 
+    private Long id;
+
 	public BusinessException() {
 		super();
 	}
@@ -21,10 +23,17 @@ public class BusinessException extends Exception {
 	public BusinessException(String message) {
 		super(message);
 	}
+	public BusinessException(String message,Long id) {
+		super("id=["+id+"]"+message);
+	}
 
 	public BusinessException(String code, String message) {
 		super(message);
 		buisinessCode = code;
+	}
+	public BusinessException(ReturnCode returnCode) {
+		super(returnCode.getMessage());
+		buisinessCode = returnCode.getCode();
 	}
 
 	public BusinessException(String message, Throwable t) {
@@ -34,6 +43,10 @@ public class BusinessException extends Exception {
 	public BusinessException(String code, String message, Throwable t) {
 		super(message, t);
 		buisinessCode = code;
+	}
+	public BusinessException(ReturnCode returnCode, Throwable t) {
+		super(returnCode.getMessage(), t);
+		buisinessCode = returnCode.getCode();
 	}
 
 	public String getBuisinessCode() {

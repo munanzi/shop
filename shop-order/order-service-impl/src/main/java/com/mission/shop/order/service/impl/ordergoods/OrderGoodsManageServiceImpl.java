@@ -1,14 +1,18 @@
 package com.mission.shop.order.service.impl.ordergoods;
 
+import java.util.Date;
+import java.util.List;
+
+import com.mission.shop.order.service.ordergoods.OrderGoodsManageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.order.dao.mapper.OrderGoodsMapper;
 import com.mission.shop.order.dao.model.OrderGoods;
-import com.mission.shop.order.service.ordergoods.OrderGoodsManageServie;
+import com.mission.shop.order.service.order.BuyedGoods;
 import com.mission.shop.product.service.goods.GoodsQueryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
  * User: hexizheng@163.com
@@ -17,7 +21,7 @@ import java.util.Date;
  */
 
 @Service
-public class OrderGoodsManageServieImpl implements OrderGoodsManageServie {
+public class OrderGoodsManageServiceImpl implements OrderGoodsManageService {
 
     @Autowired
     private OrderGoodsMapper orderGoodsMapper;
@@ -25,6 +29,7 @@ public class OrderGoodsManageServieImpl implements OrderGoodsManageServie {
     @Autowired
     private GoodsQueryService goodsQueryService;
 
+    @Transactional(rollbackFor=Exception.class)
     public Long saveOrderGoods(Long orderId,Long goodsId,int price,int num)throws BusinessException{
 
         OrderGoods orderGoods = new OrderGoods();
@@ -37,5 +42,12 @@ public class OrderGoodsManageServieImpl implements OrderGoodsManageServie {
         orderGoods.setGoodsName(productName);
         orderGoodsMapper.insert(orderGoods);
         return orderGoods.getId();
+    }
+    @Transactional(rollbackFor=Exception.class)
+    public void saveOrderGoods(Long orderId,List<BuyedGoods> list)throws BusinessException{
+    	
+    	for(BuyedGoods buyedGoods:list){
+    		saveOrderGoods(orderId,buyedGoods.getGoodesId(),buyedGoods.getPrice(),buyedGoods.getBuyNum());
+    	}
     }
 }

@@ -464,13 +464,13 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc-portlet</artifactId>
-				<version>${version.spring}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>org.springframework</groupId>-->
+				<!--<artifactId>spring-webmvc-portlet</artifactId>-->
+				<!--<version>${version.spring}</version>-->
+				<!--<type>jar</type>-->
+				<!--<scope>compile</scope>-->
+			<!--</dependency>-->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>

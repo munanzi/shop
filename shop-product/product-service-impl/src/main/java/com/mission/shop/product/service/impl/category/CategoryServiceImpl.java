@@ -2,6 +2,7 @@ package com.mission.shop.product.service.impl.category;
 
 import java.util.List;
 
+import com.mission.shop.base.common.exception.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,14 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
-	public Category queryTopCategory() throws BusinessException {
+	public Category queryTopCategory() {
 		CategoryExample example = new CategoryExample();
 		example.createCriteria().andLevelEqualTo(ProductConstants.PROUCT_CAT_TOP_LEVEL).andStatusEqualTo(ProductConstants.NORMAL_STATUS);
 		List<Category> list = categoryMapper.selectByExample(example);
 		if(list.isEmpty()){
-			throw new BusinessException("顶层商品分类为空");
+			throw new SystemException("顶层商品分类为空");
 		}else if(list.size()>1){
-			throw new BusinessException("数据逻辑出错同时存在多个顶层分类");
+			throw new SystemException("数据逻辑出错同时存在多个顶层分类");
 		}else{
 			return list.get(0);
 		}

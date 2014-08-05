@@ -14,21 +14,8 @@ public interface CreateOrderService {
 
     /**
      * 创建订单
-     * @param goodsId
-     * @param num 购买数量
-     * @return
+     * @param orderPO
      * @throws BusinessException
      */
-
-    public Order createOrder(Long goodsId,int num)throws BusinessException;
-
-    /**
-     * 创建订单
-     * @param map <goodsId,num>
-     * @param
-     * @return
-     * @throws BusinessException
-     */
-
-    public Order createOrder(Map<String,String> map)throws BusinessException;
+    public void createOrder(OrderPO orderPO)throws BusinessException;
 }

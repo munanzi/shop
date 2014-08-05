@@ -9,18 +9,16 @@ public interface CategoryService {
 	
 	/**
 	 * 查询顶级分类
-	 * @param id
-	 * @param level
+
 	 * @return
 	 * @throws BusinessException
 	 */
-	public Category queryTopCategory() throws BusinessException;
+	public Category queryTopCategory();
 
 	
 	/**
 	 * 查询子分类
-	 * @param id
-	 * @param level
+
 	 * @return
 	 * @throws BusinessException
 	 */

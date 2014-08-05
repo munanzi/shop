@@ -10,8 +10,8 @@ public class BuyedGoods {
     private Long goodesId;
     //购买数量
     private int buyNum;
-    //商品总价，用于与创建订单时价格进行比较
-    private int amount;
+    //商品单价，用于与创建订单时价格进行比较
+    private int price;
 
 
     public BuyedGoods() {
@@ -23,7 +23,17 @@ public class BuyedGoods {
         this.buyNum = buyNum;
     }
 
-    public Long getGoodesId() {
+ 
+
+    public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public Long getGoodesId() {
         return goodesId;
     }
 

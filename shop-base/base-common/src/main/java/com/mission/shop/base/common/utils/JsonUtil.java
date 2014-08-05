@@ -1,14 +1,13 @@
 package com.mission.shop.base.common.utils;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
-import com.mission.shop.base.common.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mission.shop.base.common.exception.SystemException;
 
 /**
  * 
@@ -56,15 +55,5 @@ public class JsonUtil {
         }
     }
 
-    public static void main(String[] args){
-        Map map = new HashMap();
-        map.put("颜色","白");
-        map.put("网络","电信3G");
-
-        System.out.print(object2Json(map) ) ;
-
-
-
-    }
 
 }

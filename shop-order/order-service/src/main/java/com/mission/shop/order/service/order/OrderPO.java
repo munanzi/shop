@@ -1,9 +1,7 @@
 package com.mission.shop.order.service.order;
 
-import com.mission.shop.order.common.code.InvoiceProductType;
-import com.mission.shop.order.common.code.InvoiceType;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 存放用户购买的商品及数量价格，发票，地址等
@@ -13,12 +11,14 @@ import java.util.*;
  */
 public class OrderPO {
 
-
+    private Long userId;
+    private String userName;
 
     private List<BuyedGoods> goodsList = new ArrayList<BuyedGoods>();
 
     private Long addressId;
 
+    private String isNeedInvoice;
     // 发票类型，增值税发票，普通发票等
     private short invoiceType;
 
@@ -28,6 +28,11 @@ public class OrderPO {
     private String invoiceTitle; //发票抬头
 
     private int totalAmount;//下单页面显示的金额，用来跟计算的金额比较是否一致
+
+    private String remark ;// 下单备注
+
+    private int useIntegral = 0; //使用的积分数
+
 
     //添加购买的商品
     public void setGoods(BuyedGoods buyedGoods){
@@ -80,5 +85,37 @@ public class OrderPO {
 
     public void setInvoiceTitle(String invoiceTitle) {
         this.invoiceTitle = invoiceTitle;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public int getUseIntegral() {
+        return useIntegral;
+    }
+
+    public void setUseIntegral(int useIntegral) {
+        this.useIntegral = useIntegral;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -7,6 +7,7 @@ import com.mission.shop.order.common.code.InvoiceType;
 import com.mission.shop.order.dao.mapper.InvoiceMapper;
 import com.mission.shop.order.dao.model.Invoice;
 import com.mission.shop.order.service.invoice.InvoiceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ import java.util.Date;
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
 
+    @Autowired
     private InvoiceMapper invoiceMapper;
 
 

@@ -47,7 +47,7 @@
      <table schema=""   tableName="user_rank" domainObjectName="">
            <generatedKey column="rank_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
-     <table schema=""   tableName="user_integral" domainObjectName="">
+     <table schema=""   tableName="user_integeral" domainObjectName="">
            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
     

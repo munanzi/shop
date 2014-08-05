@@ -29,6 +29,14 @@ public interface GoodsQueryService {
      * @throws BusinessException
      */
     public Product queryProductById(Long goodsId)throws BusinessException;
+    
+    /**
+     * 查找商户ID
+     * @param goodsId
+     * @return shopId
+     * @throws BusinessException
+     */
+    public Long queryShopIdByGoodsId(Long goodsId)throws BusinessException;
 
     /**
      * 检查商品状态

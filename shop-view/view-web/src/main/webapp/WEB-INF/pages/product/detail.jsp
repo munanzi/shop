@@ -26,6 +26,10 @@
 <input type="hidden" id="goodsId" name="goodsId" value="1" >
 <input type="hidden" id="num" name="num" value="2" >
 <input type="hidden" id="price" name="price" value="159" >
+<input type="hidden" id="addressId" name="addressId" value="1" >
+<input type="hidden" id="price" name="price" value="159" >
+<input type="hidden" id="price" name="price" value="159" >
+<input type="hidden" id="price" name="price" value="159" >
 </form>
       <div style="text-align:center; margin-left:auto; margin-right:auto">
 ${fullProduct.product.productTitle}

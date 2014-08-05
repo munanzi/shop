@@ -1,5 +1,6 @@
 package com.mission.shop.product.service.impl.goods;
 
+import com.mission.shop.product.common.returncode.ProductReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,21 +29,19 @@ public class GoodsStockServiceImpl implements GoodsStockService{
     private GoodsManageService goodsManageService;
 
 
-//    GoodsM
-
     @Transactional(rollbackFor = Exception.class)
     public void subStock(Long goodsId,int num) throws BusinessException{
         Goods goods = goodsQueryService.queryGoodsById(goodsId);
         if(ProductConstants.NORMAL_STATUS!=goods.getStatus()){
-            throw new BusinessException("此规格商品已下架") ;
+            throw new BusinessException(ProductReturnCode.OFF_SALE) ;
         }
         Product product = goodsQueryService.queryProductById(goodsId);
         if(ProductStatus.ON_SALE.getCode()!=product.getStatus()){
-            throw new BusinessException("商品已下架");
+            throw new BusinessException(ProductReturnCode.OFF_SALE);
         }
         int nowStock = goods.getStock();
         if(nowStock<num){
-            throw new BusinessException("商品库存不足");
+            throw new BusinessException(ProductReturnCode.OUT_OF_STOCK);
         }
         goods.setStock(nowStock-num);
         goodsManageService.updateGoods(goods);

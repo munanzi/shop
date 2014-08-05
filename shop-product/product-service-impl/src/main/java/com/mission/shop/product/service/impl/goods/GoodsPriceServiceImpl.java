@@ -1,5 +1,6 @@
 package com.mission.shop.product.service.impl.goods;
 
+import com.mission.shop.product.common.returncode.ProductReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class GoodsPriceServiceImpl implements GoodsPriceService {
     public int getGoodsPrice(Long goodsId) throws BusinessException{
         Goods goods = goodsQueryService.queryGoodsById(goodsId);
         if(ProductConstants.NORMAL_STATUS!=goods.getStatus()){
-            throw new BusinessException("此规格商品已下架") ;
+            throw new BusinessException(ProductReturnCode.OFF_SALE) ;
         }
         Integer price = goods.getPrice();
         if(price==null||price==0){
