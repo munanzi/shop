@@ -3,6 +3,7 @@ package com.mission.shop.order.service.order;
 import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.order.dao.model.Order;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,5 +18,5 @@ public interface CreateOrderService {
      * @param orderPO
      * @throws BusinessException
      */
-    public void createOrder(OrderPO orderPO)throws BusinessException;
+    public List<Order> createOrder(OrderPO orderPO)throws BusinessException;
 }

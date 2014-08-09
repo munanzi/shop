@@ -35,7 +35,7 @@ public class OrderPO {
 
 
     //添加购买的商品
-    public void setGoods(BuyedGoods buyedGoods){
+    public void addGoods(BuyedGoods buyedGoods){
         goodsList.add(buyedGoods);
     }
 

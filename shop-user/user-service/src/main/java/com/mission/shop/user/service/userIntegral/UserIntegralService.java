@@ -1,17 +1,17 @@
-package com.mission.shop.user.service.userIntegeral;
+package com.mission.shop.user.service.userIntegral;
+
+import java.util.List;
 
 import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.user.common.code.UserIntegeralType;
-import com.mission.shop.user.dao.model.UserIntegeral;
-
-import java.util.List;
+import com.mission.shop.user.dao.model.UserIntegral;
 
 /**
  * User: hexizheng@163.com
  * Date: 14-8-1
  * Time: 下午8:38
  */
-public interface UserIntegeralService {
+public interface UserIntegralService {
 
     /**
      * 减少用户积分，同时更新用户表
@@ -40,6 +40,6 @@ public interface UserIntegeralService {
      * @param userId
      * @return
      */
-    public List<UserIntegeral> queryIntegeralLogByUserId(Long userId);
+    public List<UserIntegral> queryIntegeralLogByUserId(Long userId);
 
 }

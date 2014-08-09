@@ -21,8 +21,8 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private CartMapper cartMapper;
 
-    public Cart addCartGoods(Long goodsId,short buyNum){
-        Cart cart = queryCart(ThreadLocalUtils.getUserId(),goodsId);
+    public Cart addCartGoods(Long userId,Long goodsId,short buyNum){
+        Cart cart = queryCart(userId,goodsId);
         if(cart!=null){
             cart.setBuyNum((short)(cart.getBuyNum()+buyNum));
             cartMapper.updateByPrimaryKeySelective(cart);
@@ -30,21 +30,21 @@ public class CartServiceImpl implements CartService{
             cart = new Cart();
             cart.setBuyNum(buyNum);
             cart.setGoodsId(goodsId);
-            cart.setUserId(ThreadLocalUtils.getUserId());
+            cart.setUserId(userId);
             cartMapper.insert(cart);
         }
         return cart;
     }
 
-    public List<Cart> queryAllCartGoods(){
+    public List<Cart> queryAllCartGoods(Long userId){
         CartExample cartExample = new CartExample();
-        cartExample.createCriteria().andUserIdEqualTo(ThreadLocalUtils.getUserId());
+        cartExample.createCriteria().andUserIdEqualTo(userId);
         return cartMapper.selectByExample(cartExample);
     }
 
     public Cart queryCart(Long userId,Long goodsId){
         CartExample cartExample = new CartExample();
-        cartExample.createCriteria().andUserIdEqualTo(ThreadLocalUtils.getUserId())
+        cartExample.createCriteria().andUserIdEqualTo(userId)
                     .andGoodsIdEqualTo(goodsId);
         List<Cart> list = cartMapper.selectByExample(cartExample);
         if(list.isEmpty()){

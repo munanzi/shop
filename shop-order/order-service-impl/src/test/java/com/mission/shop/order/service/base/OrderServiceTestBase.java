@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:order-service-test.xml"})
-@TransactionConfiguration(transactionManager="order-transactionManager")
+@TransactionConfiguration(transactionManager="order-transactionManager",defaultRollback=true)
 public abstract class OrderServiceTestBase extends AbstractTransactionalJUnit4SpringContextTests{
     private String sqlFile;
     
@@ -38,7 +38,6 @@ public abstract class OrderServiceTestBase extends AbstractTransactionalJUnit4Sp
     @Override
     @Resource(name = "order-dataSource")
     public void setDataSource(DataSource dataSource) {
-        // TODO Auto-generated method stub
         super.setDataSource(dataSource);
 
     }

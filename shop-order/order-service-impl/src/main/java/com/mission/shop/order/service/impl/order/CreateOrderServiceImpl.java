@@ -31,7 +31,7 @@ import com.mission.shop.product.service.goods.GoodsPriceService;
 import com.mission.shop.product.service.goods.GoodsQueryService;
 import com.mission.shop.product.service.goods.GoodsStockService;
 import com.mission.shop.user.common.code.UserIntegeralType;
-import com.mission.shop.user.service.userIntegeral.UserIntegeralService;
+import com.mission.shop.user.service.userIntegral.UserIntegralService;
 
 /**
  * User: hexizheng@163.com
@@ -68,10 +68,10 @@ public class CreateOrderServiceImpl implements CreateOrderService {
     private OrderHistoryStatusService orderHistoryStatusService;
 
     @Autowired
-    private UserIntegeralService userIntegeralService;
+    private UserIntegralService userIntegralService;
 
     @Transactional(rollbackFor = Exception.class)
-    public void createOrder(OrderPO orderPO)throws BusinessException{
+    public List<Order> createOrder(OrderPO orderPO)throws BusinessException{
         List<Order> orderList = new ArrayList<Order>();
         //按商户拆分订单
     	Map<Long,List<BuyedGoods>> map =  splitGoodsByShop(orderPO.getGoodsList());
@@ -79,16 +79,13 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 			Long shopId =  iterator.next();
 			Order order = createOrderInternal(shopId,orderPO,map.get(shopId));
             orderList.add(order);
-
 		}
+        return orderList;
     }
 
 
     private Order createOrderInternal(Long shopId,OrderPO orderPO,List<BuyedGoods> list)throws BusinessException{
-    	//保存发票信息
-        Long invoiceId = saveOrderInvoice(orderPO);
-        //保存订单地址
-        Long orderAddresss = saveOrderAddress(orderPO);
+    	
 
         Order order = new Order();
         order.setShopId(shopId);
@@ -96,15 +93,19 @@ public class CreateOrderServiceImpl implements CreateOrderService {
         order.setRemark(orderPO.getRemark());
         order.setUserId(orderPO.getUserId());
         order.setUserName(orderPO.getUserName());
-        order.setInvoiceId(invoiceId);
-        order.setLastUpdateTime(new Date());
-        order.setAddressId(orderAddresss);
-
+        order.setCreateTime(new Date());
+        order.setUpdateTime(new Date());
         order.setExpressFee(expressFeeService.getExpressFee());
         order.setAmount(getTotalAmount(list));
         //计算使用积分
         countOrderUseIntegeral(orderPO, order);
-        orderMapper.insert(order);
+        orderMapper.insertSelective(order);
+        
+        
+      //保存发票信息
+        saveOrderInvoice(orderPO,order.getOrderId());
+        //保存订单地址
+        saveOrderAddress(order.getOrderId(),orderPO.getAddressId());
 
         //扣减库存
         subGoodsStock(list);
@@ -125,12 +126,12 @@ public class CreateOrderServiceImpl implements CreateOrderService {
             goodsStockService.subStock(buyedGoods.getGoodesId(),buyedGoods.getBuyNum());
         }
     }
-    private Long saveOrderAddress(OrderPO orderPO) throws BusinessException {
-        return orderAddressService.saveOrderAddress(orderPO.getAddressId());
+    private Long saveOrderAddress(Long orderId,Long addressId) throws BusinessException {
+        return orderAddressService.saveOrderAddress(orderId,addressId);
     }
 
-    private Long saveOrderInvoice(OrderPO orderPO) {
-        return invoiceService.saveOrderInvoice(orderPO.getInvoiceTitle(),
+    private Long saveOrderInvoice(OrderPO orderPO,Long orderId) {
+        return invoiceService.saveOrderInvoice(orderId,orderPO.getInvoiceTitle(),
                     orderPO.getInvoiceProductType(),orderPO.getInvoiceType());
     }
 
@@ -156,7 +157,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
     private void subUserIntegeral(Order order) throws BusinessException {
         if(order.getUseIntegral()>0){
-            userIntegeralService.subIntegeral(order.getUserId(),order.getOrderId(),
+            userIntegralService.subIntegeral(order.getUserId(),order.getOrderId(),
                 order.getUseIntegral(), UserIntegeralType.CONSUME_PAY,"下单积分支付");
         }
     }

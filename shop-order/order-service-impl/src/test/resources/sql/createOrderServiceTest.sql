@@ -15,11 +15,11 @@ create table `goods` (
 	`product_pic_id` bigint (20),
 	`status` smallint (6)
 ); 
-insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('1','1','1001','{\"网络\":\"电信3G\",\"颜色\":\"白\"}','100','1','1399','1599',NULL,NULL,'0','1',1);
-insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('2','2','1002',NULL,'100','1','1599','1999',NULL,NULL,'0','2',1);
-insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('3','3','1003',NULL,'500','0','5000','6000',NULL,NULL,'0','3',1);
-insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('4','3','1004',NULL,'600','0','5500','6500',NULL,NULL,'0','4',1);
-insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('5','3','1005',NULL,'300','0','5100','6100',NULL,NULL,'0','5',1);
+insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('1','1','1001','{\"网络\":\"电信3G\",\"颜色\":\"白\"}','100','1','30','1599',NULL,NULL,'0','1',1);
+insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('2','2','1002',NULL,'100','1','31','1999',NULL,NULL,'0','2',1);
+insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('3','3','1003',NULL,'500','0','21','6000',NULL,NULL,'0','3',1);
+insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('4','3','1004',NULL,'600','0','22','6500',NULL,NULL,'0','4',1);
+insert into `goods` (`goods_id`, `product_id`, `goods_sn`, `spec`, `stock`, `sales`, `price`, `display_price`, `create_time`, `update_time`, `version`, `product_pic_id`, `status`) values('5','3','1005',NULL,'300','0','23','6100',NULL,NULL,'0','5',1);
 
 
 drop table if exists product;
@@ -84,32 +84,56 @@ create table `user_address` (
 insert into `user_address` (`address_id`, `user_id`, `post_code`, `address`, `consignee`, `phone_num`, `province_id`, `city_id`, `county_id`, `status`, `create_time`, `update_time`) values('1','1','10000','火星路8号','hexizheng','13888888888','1','3','3','1',NULL,NULL);
 
 drop table if exists invoice;
-CREATE TABLE `invoice` (
-  `invoice_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` smallint(6) DEFAULT NULL COMMENT '1：普通发票   2：增值发票',
-  `title` varchar(100) DEFAULT NULL COMMENT '发票抬头',
-  `product_type` smallint(6) DEFAULT NULL COMMENT '1：办公用品  2：日用品   3：食品',
-  `create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`invoice_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='发票';
+
+/*==============================================================*/
+/* Table: invoice                                               */
+/*==============================================================*/
+create table invoice
+(
+   invoice_id           bigint not null auto_increment,
+   order_id             bigint,
+   type                 smallint comment '1：普通发票   2：增值发票',
+   title                varchar(100) comment '发票抬头',
+   product_type         smallint comment '1：办公用品  2：日用品   3：食品',
+   create_time          datetime,
+   primary key (invoice_id)
+);
+
+alter table invoice comment '发票';
+
+/*==============================================================*/
+/* Index: idx_invoice_order_id                                  */
+/*==============================================================*/
+create unique index idx_invoice_order_id on invoice
+(
+   order_id
+);
 
 
+drop table if exists order_address;
 
-DROP TABLE IF EXISTS `order_address`;
-CREATE TABLE `order_address` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `consigee` varchar(50) DEFAULT NULL COMMENT '收货人',
-  `phone_num` varchar(30) DEFAULT NULL COMMENT '收货人电话',
-  `post_code` varchar(10) DEFAULT NULL COMMENT '邮编',
-  `address` varchar(200) DEFAULT NULL COMMENT '详细地址',
-  `province` varchar(50) DEFAULT NULL COMMENT '省',
-  `city` varchar(50) DEFAULT NULL COMMENT '市',
-  `county` varchar(50) DEFAULT NULL COMMENT '县',
-  `express_id` bigint(20) DEFAULT NULL COMMENT '快递公司id',
-  `express_name` varchar(50) DEFAULT NULL COMMENT '快递公司名',
-  `express_no` varchar(50) DEFAULT NULL COMMENT '快递单号',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='订单地址表';
+/*==============================================================*/
+/* Table: order_address                                         */
+/*==============================================================*/
+create table order_address
+(
+   id                   bigint not null auto_increment,
+   order_id             bigint not null,
+   consigee             varchar(50) not null comment '收货人',
+   phone_num            varchar(30) not null comment '收货人电话',
+   post_code            varchar(10) comment '邮编',
+   address              varchar(200) comment '详细地址',
+   province             varchar(50) comment '省',
+   city                 varchar(50) comment '市',
+   county               varchar(50) comment '县',
+   express_id           bigint comment '快递公司id',
+   express_name         varchar(50) comment '快递公司名',
+   express_no           varchar(50) comment '快递单号',
+   create_time          datetime not null,
+   primary key (id)
+);
+
+alter table order_address comment '订单地址表';
 
 
 DROP TABLE IF EXISTS `order_goods`;
@@ -123,7 +147,7 @@ CREATE TABLE `order_goods` (
   `quanity` int(11) DEFAULT NULL COMMENT '成交数量',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='订单商品表';
+) DEFAULT CHARSET=utf8 COMMENT='订单商品表';
 
 DROP TABLE IF EXISTS `order_history_status`;
 
@@ -134,31 +158,60 @@ CREATE TABLE `order_history_status` (
   `remark` varchar(500) DEFAULT NULL COMMENT '说明',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='订单状态表';
+) DEFAULT CHARSET=utf8 COMMENT='订单状态表';
 
 
-DROP TABLE IF EXISTS `trade_order`;
+drop table if exists trade_order;
 
-CREATE TABLE `trade_order` (
-  `order_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `shop_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL COMMENT '商品类型ID',
-  `invoice_id` bigint(20) DEFAULT NULL COMMENT '发票id',
-  `user_name` varchar(50) DEFAULT NULL COMMENT '用户名',
-  `address_id` bigint(20) DEFAULT NULL,
-  `status` smallint(6) DEFAULT NULL COMMENT '1  初始\n            2 支付中\n            3 支付成功\n            4 已发货\n            5 交易成功\n            6 退货申请中\n            7 已同意退货\n            8 退货成功\n            9 拒绝退货',
-  `pay_type` smallint(6) DEFAULT NULL,
-  `amount` int(11) DEFAULT NULL COMMENT '订单金额 = 商品金额 + 快递费用',
-  `express_fee` int(11) DEFAULT NULL COMMENT '快递费',
-  `use_integral` int(11) DEFAULT NULL COMMENT '应付金额= 订单金额-使用积分',
-  `sent_integral` int(11) DEFAULT NULL,
-  `remark` varchar(100) DEFAULT NULL COMMENT '下单备注',
-  `version` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `last_update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='交易订单表';
+/*==============================================================*/
+/* Table: trade_order                                           */
+/*==============================================================*/
+create table trade_order
+(
+   order_id             bigint not null auto_increment,
+   shop_id              bigint,
+   user_id              bigint comment '商品类型ID',
+   user_name            varchar(50) comment '用户名',
+   status               smallint comment '1  初始
+            2 支付中
+            3 支付成功
+            4 已发货
+            5 交易成功
+            6 退货申请中
+            7 已同意退货
+            8 退货成功
+            9 拒绝退货',
+   pay_type             smallint,
+   amount               int comment '订单金额 = 商品金额 + 快递费用',
+   express_fee          int comment '快递费',
+   use_integral         int comment '应付金额= 订单金额-使用积分',
+   sent_integral        int,
+   remark               varchar(100) comment '下单备注',
+   version              int default 0,
+   create_time          datetime,
+   update_time          datetime,
+   primary key (order_id)
+);
 
+alter table trade_order comment '交易订单表';
+
+
+DROP TABLE IF EXISTS `user`;
+create table `user` (
+	`user_id` bigint (20),
+	`rank_id` bigint (20),
+	`user_name` varchar (150),
+	`user_real_name` varchar (150),
+	`phone_num` varchar (90),
+	`mail` varchar (150),
+	`sex` char (3),
+	`status` smallint (6),
+	`integral` int (11),
+	`create_time` datetime ,
+	`update_time` datetime ,
+	`version` int (11)
+) DEFAULT CHARSET=utf8 ;
+insert into `user` (`user_id`, `rank_id`, `user_name`, `user_real_name`, `phone_num`, `mail`, `sex`, `status`, `integral`, `create_time`, `update_time`, `version`) values('1','1','hexizheng','贺夕政','13851402609','hexizheng@163.com','m','1','1000','2014-08-01 21:43:43','2014-08-01 21:43:46','0');
 
 DROP TABLE IF EXISTS `user_integral`;
 
@@ -173,26 +226,7 @@ CREATE TABLE `user_integral` (
   `type` smallint(6) DEFAULT NULL COMMENT '1 消费赠送\n            2 推荐',
   `remark` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='记录会员每笔积分增减记录';
+)DEFAULT CHARSET=utf8 COMMENT='记录会员每笔积分增减记录';
 
-
-
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `rank_id` bigint(20) DEFAULT NULL,
-  `user_name` varchar(50) DEFAULT NULL COMMENT '用户名',
-  `user_real_name` varchar(50) DEFAULT NULL COMMENT '用户真实姓名',
-  `phone_num` varchar(30) DEFAULT NULL COMMENT '手机号',
-  `mail` varchar(50) DEFAULT NULL COMMENT '邮箱',
-  `sex` char(1) DEFAULT NULL COMMENT 'm 男\n            f  女',
-  `status` smallint(6) DEFAULT NULL COMMENT '1 正常\n            2 黑名单用户',
-  `integral` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='网站会员';
 
 

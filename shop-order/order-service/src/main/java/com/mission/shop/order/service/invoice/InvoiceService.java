@@ -1,6 +1,5 @@
 package com.mission.shop.order.service.invoice;
 
-import com.mission.shop.order.dao.model.Invoice;
 
 /**
  * User: hexizheng@163.com
@@ -14,5 +13,5 @@ public interface InvoiceService {
      * @param
      * @return  id，
      */
-    public Long saveOrderInvoice(String title,short productType,short type);
+    public Long saveOrderInvoice(Long orderId,String title,short productType,short type);
 }

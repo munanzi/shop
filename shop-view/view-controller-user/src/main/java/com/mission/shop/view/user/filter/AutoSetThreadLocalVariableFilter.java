@@ -18,7 +18,7 @@ import com.mission.shop.user.dao.model.User;
 /**
  * @title 自动设置threadlocal中的变量过滤器
  * @description
-
+ * @deprecated  use   UserUtils,service maybe be deployed separately.
  */
 
 public class AutoSetThreadLocalVariableFilter implements Filter {
@@ -42,8 +42,8 @@ public class AutoSetThreadLocalVariableFilter implements Filter {
             currentUser.setUserId(user.getUserId());
             currentUser.setUserName(user.getUserName());
         } 
-        ThreadLocalUtils.setCurrentUser(currentUser);
-        ThreadLocalUtils.setUser(user);
+//        ThreadLocalUtils.setCurrentUser(currentUser);
+//        ThreadLocalUtils.setUser(user);
         chain.doFilter(request, response);
     }
 

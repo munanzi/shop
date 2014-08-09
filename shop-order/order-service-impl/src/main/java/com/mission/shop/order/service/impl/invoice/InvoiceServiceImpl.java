@@ -28,7 +28,7 @@ public class InvoiceServiceImpl implements InvoiceService{
 
 
     @Transactional(rollbackFor = Exception.class)
-    public Long saveOrderInvoice(String title,short productType,short type){
+    public Long saveOrderInvoice(Long orderId,String title,short productType,short type){
         if(!InvoiceProductType.isCodeExist(productType)) {
              throw new SystemException("不存在的invoiceProductType："+productType) ;
         }
@@ -36,6 +36,7 @@ public class InvoiceServiceImpl implements InvoiceService{
             throw new SystemException("不存在的invoiceType："+type) ;
         }
         Invoice invoice = new Invoice();
+        invoice.setOrderId(orderId);
         invoice.setProductType(productType);
         invoice.setType(type);
         invoice.setTitle(title);

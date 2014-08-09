@@ -23,11 +23,11 @@ public interface CartService {
      * @param goodsId
      * @param buyNum
      */
-    public Cart addCartGoods(Long goodsId,short buyNum);
+    public Cart addCartGoods(Long userId,Long goodsId,short buyNum);
 
     /**
      * 查询出当前登录用户购物车列表
      * @return  当前没有登录用户时返回空列表
      */
-    public List<Cart> queryAllCartGoods();
+    public List<Cart> queryAllCartGoods(Long userId);
 }

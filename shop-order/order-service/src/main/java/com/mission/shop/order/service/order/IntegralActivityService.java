@@ -9,7 +9,7 @@ import java.util.List;
  * Date: 14-7-27
  * Time: 下午8:05
  */
-public interface IntegeralActivityService {
+public interface IntegralActivityService {
 
     /**
      * 订单完成后

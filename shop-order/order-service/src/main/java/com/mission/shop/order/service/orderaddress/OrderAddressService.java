@@ -14,5 +14,5 @@ public interface OrderAddressService {
      * @param userAddressId
      * @return  订单地址Id
      */
-    public Long saveOrderAddress(Long userAddressId)throws BusinessException;
+    public Long saveOrderAddress(Long orderId,Long userAddressId)throws BusinessException;
 }

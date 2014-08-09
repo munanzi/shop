@@ -1,6 +1,6 @@
 package com.mission.shop.order.service.impl.order;
 
-import com.mission.shop.order.service.order.IntegeralActivityService;
+import com.mission.shop.order.service.order.IntegralActivityService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * Time: 下午8:02
  */
 @Service
-public class IntegeralActivityServiceImpl implements IntegeralActivityService {
+public class IntegralActivityServiceImpl implements IntegralActivityService {
 
 
 

@@ -7,6 +7,7 @@ import java.util.Map;
  * 当前线程工具类
  * @description
  * @author hexizheng
+ * *@deprecated  service maybe be deployed separately.
  */
 
 public class ThreadLocalUtils {
@@ -25,100 +26,100 @@ public class ThreadLocalUtils {
 	 * @param key
 	 * @param value
 	 */
-	public static void setValue(Object key, Object value) {
-		Map<Object, Object> threadLocalValueMap = threadLocal.get();
-		if (threadLocalValueMap == null) {
-			threadLocalValueMap = new HashMap<Object, Object>();
-			threadLocal.set(threadLocalValueMap);
-		}
-		threadLocalValueMap.put(key, value);
-	}
-	public static void setUser( Object value) {
-		Map<Object, Object> threadLocalValueMap = threadLocal.get();
-		if (threadLocalValueMap == null) {
-			threadLocalValueMap = new HashMap<Object, Object>();
-			threadLocal.set(threadLocalValueMap);
-		}
-		threadLocalValueMap.put(USER, value);
-	}
-
-	/**
-	 * 从当前线程中取得信息
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public static Object getValue(Object key) {
-		Map<Object, Object> threadLocalValueMap = threadLocal.get();
-		if (threadLocalValueMap == null) {
-			return null;
-		} else {
-			return threadLocalValueMap.get(key);
-		}
-	}
-	public static <T> T getUser( Class<T> valueType) {
-		Map<Object, Object> threadLocalValueMap = threadLocal.get();
-		if (threadLocalValueMap == null) {
-			return null;
-		} else {
-			return (T)threadLocalValueMap.get(USER);
-		}
-	}
-
-	/**
-	 * 取得当前用户名
-	 * 
-	 * @return
-	 */
-	public static String getUserName() {
-		CurrentUser user = getCurrentUser();
-		if(user == null){
-	        return null; 
-	    }
-		return user.getUserName();
-	}
-
-	/**
-	 * 取得当前用户编号
-	 * 
-	 * @return
-	 */
-	public static Long getUserId() {
-		CurrentUser user = getCurrentUser();
-		if(user == null){
-	        return null; 
-	    }
-		return user.getUserId();
-	}
-
-	
-	/**
-	 * 取得当前用户IP
-	 * 
-	 * @return
-	 */
-	public static String getUserIP() {
-		CurrentUser user = getCurrentUser();
-		if(user == null){
-	        return null; 
-	    }
-		return user.getIp();
-	}
-	
-	
-	/**
-	 * @param 
-	 */
-	public static void setCurrentUser(CurrentUser user) {
-		setValue(CURRENT_USER, user);
-	}
-
-	/**
-	 * @param 
-	 */
-	public static CurrentUser getCurrentUser() {
-		return (CurrentUser) getValue(CURRENT_USER);
-	}
-	
+//	public static void setValue(Object key, Object value) {
+//		Map<Object, Object> threadLocalValueMap = threadLocal.get();
+//		if (threadLocalValueMap == null) {
+//			threadLocalValueMap = new HashMap<Object, Object>();
+//			threadLocal.set(threadLocalValueMap);
+//		}
+//		threadLocalValueMap.put(key, value);
+//	}
+//	public static void setUser( Object value) {
+//		Map<Object, Object> threadLocalValueMap = threadLocal.get();
+//		if (threadLocalValueMap == null) {
+//			threadLocalValueMap = new HashMap<Object, Object>();
+//			threadLocal.set(threadLocalValueMap);
+//		}
+//		threadLocalValueMap.put(USER, value);
+//	}
+//
+//	/**
+//	 * 从当前线程中取得信息
+//	 * 
+//	 * @param key
+//	 * @return
+//	 */
+//	public static Object getValue(Object key) {
+//		Map<Object, Object> threadLocalValueMap = threadLocal.get();
+//		if (threadLocalValueMap == null) {
+//			return null;
+//		} else {
+//			return threadLocalValueMap.get(key);
+//		}
+//	}
+//	public static <T> T getUser( Class<T> valueType) {
+//		Map<Object, Object> threadLocalValueMap = threadLocal.get();
+//		if (threadLocalValueMap == null) {
+//			return null;
+//		} else {
+//			return (T)threadLocalValueMap.get(USER);
+//		}
+//	}
+//
+//	/**
+//	 * 取得当前用户名
+//	 * 
+//	 * @return
+//	 */
+//	public static String getUserName() {
+//		CurrentUser user = getCurrentUser();
+//		if(user == null){
+//	        return null; 
+//	    }
+//		return user.getUserName();
+//	}
+//
+//	/**
+//	 * 取得当前用户编号
+//	 * 
+//	 * @return
+//	 */
+//	public static Long getUserId() {
+//		CurrentUser user = getCurrentUser();
+//		if(user == null){
+//	        return null; 
+//	    }
+//		return user.getUserId();
+//	}
+//
+//	
+//	/**
+//	 * 取得当前用户IP
+//	 * 
+//	 * @return
+//	 */
+//	public static String getUserIP() {
+//		CurrentUser user = getCurrentUser();
+//		if(user == null){
+//	        return null; 
+//	    }
+//		return user.getIp();
+//	}
+//	
+//	
+//	/**
+//	 * @param 
+//	 */
+//	public static void setCurrentUser(CurrentUser user) {
+//		setValue(CURRENT_USER, user);
+//	}
+//
+//	/**
+//	 * @param 
+//	 */
+//	public static CurrentUser getCurrentUser() {
+//		return (CurrentUser) getValue(CURRENT_USER);
+//	}
+//	
 	
 }
