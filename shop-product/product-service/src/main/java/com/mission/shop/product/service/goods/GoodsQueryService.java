@@ -45,5 +45,8 @@ public interface GoodsQueryService {
      * @throws BusinessException
      */
     public void checkGoodsStatus(Long goodsId) throws BusinessException;
+    
+    
+    
 
 }

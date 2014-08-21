@@ -5,20 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.base.common.utils.JsonUtil;
 import com.mission.shop.base.common.utils.NumberUtils;
-import com.mission.shop.order.dao.model.Order;
 import com.mission.shop.order.service.order.BuyedGoods;
 import com.mission.shop.order.service.order.CreateOrderService;
 import com.mission.shop.order.service.order.OrderPO;
+import com.mission.shop.product.service.goods.GoodsShowQueryService;
+import com.mission.shop.product.service.goods.GoodsView;
+import com.mission.shop.user.dao.model.Area;
+import com.mission.shop.user.dao.model.User;
+import com.mission.shop.user.dao.model.UserAddress;
+import com.mission.shop.user.service.area.AreaService;
+import com.mission.shop.user.service.useraddress.UserAddressServcie;
+import com.mission.shop.view.order.util.UserUtils;
 
 /**
  * User: hexizheng@163.com
@@ -32,28 +42,43 @@ public class CreateOrderController {
     @Autowired
     private CreateOrderService createOrderService;
 
+    @Autowired
+    private UserAddressServcie userAddressServcie;
+
+    @Autowired
+    private AreaService areaService;
+    
+    @Autowired
+    private GoodsShowQueryService goodsShowQueryService;
+
     Logger logger = (Logger) LoggerFactory.getLogger(getClass());
-    @RequestMapping("buy")
-    public String buy(@RequestParam("goodsId") Long goodsId,
-                      @RequestParam("goodsId") int num) {
+    @RequestMapping("confirmOrder")
+    public String confirmOrder(@RequestParam("goodsId") Long goodsId,ModelMap model,
+                      @RequestParam("num") int num,HttpSession session) {
 
+        User user  = UserUtils.getUser(session) ;
+        List<UserAddress> addressList = userAddressServcie.queryAddressByUserId(user.getUserId());
 
-//        try {
-//            createOrderService.createOrder(goodsId,num) ;
-//        } catch (BusinessException e) {
-//
-//            logger.error("创建订单失败 goodsId="+goodsId,e);
-//        }
+        List<Area> provinceList = areaService.queryAllProvince();
 
-        return "";
+        try {
+			GoodsView goodsView = goodsShowQueryService.queryGoodsView(goodsId, num);
+			model.addAttribute("goodsView",goodsView);
+		} catch (BusinessException e) {
+			model.addAttribute("errorMessage",e.getDisplayMessage());
+			logger.error("查找找商品信息出错",e);
+			return "common/error";
+		}
+
+        model.addAttribute("addressList",addressList);
+        model.addAttribute("provinceList",provinceList);
+        return "order/confirmOrder";
     }
     @RequestMapping("settle")
-    public String settle(@RequestParam("jsonGoods") String jsonGoods,OrderPO orderPO
-                         ) {
+    public String settle(@RequestParam("jsonGoods") String jsonGoods,OrderPO orderPO) {
 
     	List<BuyedGoods> goodsList = getGoodsList(jsonGoods);
         Map map = JsonUtil.jsonToObject(jsonGoods);
-
         try{
         	orderPO.setGoodsList(goodsList);
             createOrderService.createOrder(orderPO) ;
@@ -79,27 +104,5 @@ public class CreateOrderController {
     	}
     	return goodsList;
     }
-    
-    
-    public static void main(String[] args){
-        Map map = new HashMap();
-        map.put("goodsId","5");
-        map.put("num","3");
-        map.put("price","3.55");
-        Map map2 = new HashMap();
-        map2.put("goodsId","51");
-        map2.put("num","31");
-        map2.put("price","13.55");
-
-        List list = new ArrayList();
-        list.add(map);
-//        list.add(map2);
-        String s = JsonUtil.object2Json(list) ;
-        System.out.println(s) ;
-
-        List list2 = JsonUtil.json2Object(s, List.class);
-        System.out.println(list2) ;
-    }
-    
     
 }

@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<form name="orderForm" action="${ctx}/order/buy.htm" method="post">
+<form name="orderForm" action="${ctx}/order/confirmOrder.htm" method="post">
 <input type="hidden" id="goodsId" name="goodsId" value="1" >
 <input type="hidden" id="num" name="num" value="2" >
 <input type="hidden" id="price" name="price" value="159" >

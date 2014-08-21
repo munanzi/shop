@@ -59,4 +59,11 @@ public class BusinessException extends Exception {
 			return true;
 		}
 	}
+	
+	public String getDisplayMessage(){
+		if(isExistCode()){
+			return getMessage();
+		}
+		return "系统繁忙，请稍后重试。";
+	}
 }

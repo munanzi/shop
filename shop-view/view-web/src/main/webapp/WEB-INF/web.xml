@@ -46,7 +46,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Dispatcher</servlet-name>
-		<url-pattern>*.htm</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<!-- 500 服务器内部错误 -->
 	<!-- <error-page> -->

@@ -1,5 +1,12 @@
 package com.mission.shop.product.service.impl.goods;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.base.common.exception.SystemException;
 import com.mission.shop.product.common.code.ProductStatus;
@@ -9,14 +16,8 @@ import com.mission.shop.product.dao.mapper.GoodsMapper;
 import com.mission.shop.product.dao.model.Goods;
 import com.mission.shop.product.dao.model.GoodsExample;
 import com.mission.shop.product.dao.model.Product;
-import com.mission.shop.product.service.product.ProductQueryService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.mission.shop.product.service.goods.GoodsQueryService;
-
-import java.util.List;
+import com.mission.shop.product.service.product.ProductQueryService;
 
 @Service
 public class GoodsQueryServiceImpl implements GoodsQueryService{
@@ -77,5 +78,6 @@ public class GoodsQueryServiceImpl implements GoodsQueryService{
     public Long queryShopIdByGoodsId(Long goodsId)throws BusinessException{
     	return queryProductById(goodsId).getShopId();
     }
+   
 
 }

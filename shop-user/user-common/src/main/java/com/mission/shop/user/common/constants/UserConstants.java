@@ -11,6 +11,11 @@ public class UserConstants {
     public static final short DELETED_STATUS=2;//通用已删除状态
 
 
+    public static final short PROVINCE_LEVEL=1; //地区表省层级
 
     public static final String SESSION_USER = "SESSION_USER" ;
+    
+    
+    
+    public static final int USER_ADDRESS_LIMIT_NUM = 10 ;	//用户地址数限制
 }
