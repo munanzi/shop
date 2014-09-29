@@ -1,9 +1,6 @@
 package com.mission.shop.product.service.impl.goods;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,4 +84,24 @@ public class GoodsShowQueryServiceimpl implements GoodsShowQueryService{
 		}
 		return map;
 	}
+
+    public Map<String,List<GoodsView>> queryGoodsView(Map<String,String> goodsMap)throws BusinessException{
+
+        Map<String,List<GoodsView>> map = new HashMap<String,List<GoodsView>>();
+
+        Iterator iterator = goodsMap.keySet().iterator();
+        while(iterator.hasNext()){
+            Long goodsId =  Long.parseLong((String)iterator.next());
+            int num= Integer.parseInt((String)goodsMap.get(goodsId+""));
+            GoodsView goodsView = queryGoodsView(goodsId,num);
+            List<GoodsView> viewList = map.get(goodsView.getShopName());
+            if(viewList==null){
+                viewList = new ArrayList<GoodsView>();
+            }
+            viewList.add(goodsView);
+            map.put(goodsView.getShopName(), viewList);
+        }
+
+        return map;
+    }
 }

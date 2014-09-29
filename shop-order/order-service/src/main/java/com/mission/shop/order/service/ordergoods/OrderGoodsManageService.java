@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.order.service.order.BuyedGoods;
+import com.mission.shop.product.service.goods.GoodsView;
 
 /**
  * User: hexizheng@163.com
@@ -25,5 +26,5 @@ public interface OrderGoodsManageService {
      * 保存订单商品
      * @param orderId
      */
-    public void saveOrderGoods(Long orderId,List<BuyedGoods> list)throws BusinessException;
+    public void saveOrderGoods(Long orderId,List<GoodsView> list)throws BusinessException;
 }

@@ -1,7 +1,11 @@
 package com.mission.shop.order.service.order;
 
+import com.mission.shop.product.service.goods.GoodsView;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 存放用户购买的商品及数量价格，发票，地址等
@@ -14,11 +18,13 @@ public class OrderPO {
     private Long userId;
     private String userName;
 
-    private List<BuyedGoods> goodsList = new ArrayList<BuyedGoods>();
+//    private List<BuyedGoods> goodsList = new ArrayList<BuyedGoods>();
+
+    Map<String,List<GoodsView>> goodsMap = new HashMap<String,List<GoodsView>>();
+
 
     private Long addressId;
 
-    private String isNeedInvoice;
     // 发票类型，增值税发票，普通发票等
     private short invoiceType;
 
@@ -33,19 +39,25 @@ public class OrderPO {
 
     private int useIntegral = 0; //使用的积分数
 
+    public Map<String, List<GoodsView>> getGoodsMap() {
+        return goodsMap;
+    }
 
+    public void setGoodsMap(Map<String, List<GoodsView>> goodsMap) {
+        this.goodsMap = goodsMap;
+    }
     //添加购买的商品
-    public void addGoods(BuyedGoods buyedGoods){
-        goodsList.add(buyedGoods);
-    }
-
-    public List<BuyedGoods> getGoodsList() {
-        return goodsList;
-    }
-
-    public void setGoodsList(List<BuyedGoods> goodsList) {
-        this.goodsList = goodsList;
-    }
+//    public void addGoods(BuyedGoods buyedGoods){
+//        goodsList.add(buyedGoods);
+//    }
+//
+//    public List<BuyedGoods> getGoodsList() {
+//        return goodsList;
+//    }
+//
+//    public void setGoodsList(List<BuyedGoods> goodsList) {
+//        this.goodsList = goodsList;
+//    }
 
     public int getTotalAmount() {
         return totalAmount;

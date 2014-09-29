@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.mission.shop.base.common.utils.StringUtils;
+import com.mission.shop.product.service.cart.CartService;
+import com.mission.shop.product.service.goods.GoodsView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,26 +72,28 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
     @Autowired
     private UserIntegralService userIntegralService;
+    @Autowired
+    private CartService cartService;
 
     @Transactional(rollbackFor = Exception.class)
     public List<Order> createOrder(OrderPO orderPO)throws BusinessException{
         List<Order> orderList = new ArrayList<Order>();
         //按商户拆分订单
-    	Map<Long,List<BuyedGoods>> map =  splitGoodsByShop(orderPO.getGoodsList());
-    	for (Iterator<Long> iterator = map.keySet().iterator(); iterator.hasNext();) {
-			Long shopId =  iterator.next();
-			Order order = createOrderInternal(shopId,orderPO,map.get(shopId));
+//    	Map<Long,List<BuyedGoods>> map =  splitGoodsByShop(orderPO.getGoodsList());
+    	for (Iterator<String> iterator = orderPO.getGoodsMap().keySet().iterator(); iterator.hasNext();) {
+			String shopName =  iterator.next();
+			Order order = createOrderInternal(orderPO, orderPO.getGoodsMap().get(shopName));
             orderList.add(order);
 		}
         return orderList;
     }
 
 
-    private Order createOrderInternal(Long shopId,OrderPO orderPO,List<BuyedGoods> list)throws BusinessException{
+    private Order createOrderInternal(OrderPO orderPO,List<GoodsView> list)throws BusinessException{
     	
 
         Order order = new Order();
-        order.setShopId(shopId);
+        order.setShopId(list.get(0).getShopId());
         order.setPayType(payTypeService.getPayType().getCode());
         order.setRemark(orderPO.getRemark());
         order.setUserId(orderPO.getUserId());
@@ -116,23 +121,25 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
         //订单历史
         saveOrderHistory(order);
-
-
+        //删除购物车
+        deleteCart(order.getUserId(),order.getOrderId());
         return  order;
     }
 
-    private void subGoodsStock(List<BuyedGoods> list)throws BusinessException{
-        for(BuyedGoods buyedGoods:list){
-            goodsStockService.subStock(buyedGoods.getGoodesId(),buyedGoods.getBuyNum());
+    private void subGoodsStock(List<GoodsView> list)throws BusinessException{
+        for(GoodsView goodsView:list){
+            goodsStockService.subStock(goodsView.getGoodsId(),goodsView.getNum());
         }
     }
     private Long saveOrderAddress(Long orderId,Long addressId) throws BusinessException {
         return orderAddressService.saveOrderAddress(orderId,addressId);
     }
 
-    private Long saveOrderInvoice(OrderPO orderPO,Long orderId) {
-        return invoiceService.saveOrderInvoice(orderId,orderPO.getInvoiceTitle(),
+    private void saveOrderInvoice(OrderPO orderPO,Long orderId) {
+        if(StringUtils.isNotEmpty(orderPO.getInvoiceTitle())){
+            invoiceService.saveOrderInvoice(orderId,orderPO.getInvoiceTitle(),
                     orderPO.getInvoiceProductType(),orderPO.getInvoiceType());
+        }
     }
 
     private int countOrderUseIntegeral(OrderPO orderPO,  Order order) {
@@ -151,7 +158,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
         return needPayAmount;
     }
 
-    private void saveOrderGoodsDetail(List<BuyedGoods> list, Long orderId) throws BusinessException {
+    private void saveOrderGoodsDetail(List<GoodsView> list, Long orderId) throws BusinessException {
         orderGoodsManageService.saveOrderGoods(orderId,list);
     }
 
@@ -175,20 +182,28 @@ public class CreateOrderServiceImpl implements CreateOrderService {
      * @param goodsList   商品列表
      * @throws BusinessException
      */
-    private int getTotalAmount(List<BuyedGoods> goodsList)throws BusinessException{
+    private int getTotalAmount(List<GoodsView> goodsList)throws BusinessException{
 
         int totalAmount = 0;
-        for(BuyedGoods buyedGoods: goodsList){
-            int price = goodsPriceService.getGoodsPrice(buyedGoods.getGoodesId());
-            int amount = price *   buyedGoods.getBuyNum();
-            if(price!=buyedGoods.getPrice()){
+        for(GoodsView goodsView: goodsList){
+            int price = goodsPriceService.getGoodsPrice(goodsView.getGoodsId());
+            int amount = price *   goodsView.getNum();
+            if(price!=goodsView.getPrice()){
                 throw new SystemException("页面显示单价与后台计算价格不一致goodsId["+
-                        buyedGoods.getGoodesId()+"]display["+ buyedGoods.getPrice()+"]count["+price+"]") ;
+                        goodsView.getGoodsId()+"]display["+ goodsView.getPrice()+"]count["+price+"]") ;
             }
            totalAmount += amount;
         }
 
         return totalAmount;
+    }
+
+    /**
+     * 删除购物车中商品
+     * @param orderId
+     */
+    private void deleteCart(long userId,long orderId){
+        cartService.deleteCartGoods(userId,orderId);
     }
 
 
@@ -197,18 +212,18 @@ public class CreateOrderServiceImpl implements CreateOrderService {
      * @param goodsList  商品列表
      * @throws BusinessException
      */
-    private Map<Long,List<BuyedGoods>> splitGoodsByShop(List<BuyedGoods> goodsList)throws BusinessException{
-    	Map<Long,List<BuyedGoods>> map = new HashMap<Long,List<BuyedGoods>>();
-    	for(BuyedGoods buyedGoods: goodsList){
-    		Long shopId = goodsQueryService.queryShopIdByGoodsId(buyedGoods.getGoodesId());
-            List<BuyedGoods> list = map.get(shopId);
-            if(list==null){
-                list = new ArrayList<BuyedGoods>();
-            }
-            list.add(buyedGoods);
-            map.put(shopId,list);
-    	}
-    	return map;
-    }
+//    private Map<Long,List<BuyedGoods>> splitGoodsByShop(List<BuyedGoods> goodsList)throws BusinessException{
+//    	Map<Long,List<BuyedGoods>> map = new HashMap<Long,List<BuyedGoods>>();
+//    	for(BuyedGoods buyedGoods: goodsList){
+//    		Long shopId = goodsQueryService.queryShopIdByGoodsId(buyedGoods.getGoodesId());
+//            List<BuyedGoods> list = map.get(shopId);
+//            if(list==null){
+//                list = new ArrayList<BuyedGoods>();
+//            }
+//            list.add(buyedGoods);
+//            map.put(shopId,list);
+//    	}
+//    	return map;
+//    }
 
 }

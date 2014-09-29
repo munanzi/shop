@@ -26,6 +26,12 @@ public interface CartService {
     public Cart addCartGoods(Long userId,Long goodsId,short buyNum);
 
     /**
+     * @param userId
+     * @param goodsId
+     */
+    public void deleteCartGoods(Long userId,Long goodsId);
+
+    /**
      * 查询出当前登录用户购物车列表
      * @return  当前没有登录用户时返回空列表
      */

@@ -53,4 +53,11 @@ public class CartServiceImpl implements CartService{
             return list.get(0);
         }
     }
+
+    public void deleteCartGoods(Long userId,Long goodsId){
+        CartExample cartExample = new CartExample();
+        cartExample.createCriteria().andUserIdEqualTo(userId)
+                .andGoodsIdEqualTo(goodsId);
+        cartMapper.deleteByExample(cartExample);
+    }
 }

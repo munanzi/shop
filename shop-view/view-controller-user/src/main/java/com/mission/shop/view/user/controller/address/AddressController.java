@@ -33,6 +33,12 @@ public class AddressController {
 			UserAddress address = userAddressManageService.addUserAddress(userAddress);
 			retMap.put("code", "0");
 			retMap.put("addressId",address.getAddressId()+"");
+            retMap.put("province",address.getProvince());
+            retMap.put("city",address.getCity());
+            retMap.put("county",address.getCounty());
+            retMap.put("address",address.getAddress());
+            retMap.put("consignee",address.getConsignee());
+            retMap.put("phoneNum",address.getPhoneNum());
 		} catch (BusinessException e) {
 			if(e.isExistCode()){
 				retMap.put("code", e.getBuisinessCode());

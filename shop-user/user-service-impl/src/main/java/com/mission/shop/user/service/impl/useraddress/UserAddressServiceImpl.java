@@ -42,8 +42,7 @@ public class UserAddressServiceImpl implements UserAddressServcie {
 
         UserAddressExample example = new UserAddressExample();
         example.setOrderByClause(" update_time desc");
-        example.createCriteria().andUserIdEqualTo(userId)
-                .andStatusEqualTo(UserConstants.NORMAL_STATUS);
+        example.createCriteria().andUserIdEqualTo(userId);
 
         return userAddressMapper.selectByExample(example);
     }

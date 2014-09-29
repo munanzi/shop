@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/7/15 20:56:09                           */
+/* Created on:     2014/9/23 21:09:38                           */
 /*==============================================================*/
 
 
@@ -12,6 +12,8 @@ drop table if exists attribute;
 
 drop table if exists brand;
 
+drop table if exists cart;
+
 drop table if exists category;
 
 drop table if exists express;
@@ -20,13 +22,21 @@ drop index index_product_id on goods;
 
 drop table if exists goods;
 
+drop index idx_invoice_order_id on invoice;
+
 drop table if exists invoice;
+
+drop index idx_order_address_ordre_id on order_address;
 
 drop table if exists order_address;
 
+drop index idx_order_goods_order_id on order_goods;
+
 drop table if exists order_goods;
 
-drop table if exists order_status;
+drop index idx_order_history_status_order_id on order_history_status;
+
+drop table if exists order_history_status;
 
 drop table if exists packing_list;
 
@@ -66,9 +76,10 @@ drop table if exists user_rank;
 create table area
 (
    area_id              bigint not null auto_increment,
+   area_code            int,
    area_name            varchar(50) comment '商品类型ID',
    parent_id            bigint comment '规格名',
-   level                smallint comment '0 全国
+   level                smallint comment '0 国家
             1 省
             2 市
             3 区/县',
@@ -125,6 +136,21 @@ create table brand
 );
 
 /*==============================================================*/
+/* Table: cart                                                  */
+/*==============================================================*/
+create table cart
+(
+   id                   bigint not null auto_increment,
+   user_id              bigint not null,
+   goods_id             bigint not null,
+   buy_num              smallint not null default 1,
+   create_time          datetime not null default CURRENT_TIMESTAMP,
+   primary key (id)
+);
+
+alter table cart comment '购物车';
+
+/*==============================================================*/
 /* Table: category                                              */
 /*==============================================================*/
 create table category
@@ -152,11 +178,11 @@ create table express
    express_name         varchar(50) comment '快递公司名',
    status               smallint comment '1 正常
             2 已删除',
-   create_time          datetime,
-   update_time          datetime,
    telephone            varchar(50) comment '联系电话',
    contact              varchar(30) comment '联系人',
    contact_phone_num    varchar(30) comment '联系人手机',
+   create_time          datetime,
+   update_time          datetime,
    primary key (express_id)
 );
 
@@ -171,15 +197,15 @@ create table goods
    product_id           bigint,
    goods_sn             int comment '商品序列号',
    spec                 varchar(500) comment '以json格式存储规格，比如{颜色：白色，尺寸：xl}',
-   stock                int comment '库存',
-   sales                int comment '销量',
+   stock                int default 0 comment '库存',
+   sales                int default 0 comment '销量',
    price                int comment '价格',
    display_price        int comment '原价',
    create_time          datetime,
    update_time          datetime,
    version              int,
    product_pic_id       bigint,
-   status               smallint comment '1 正常
+   status               smallint default 1 comment '1 正常
             2 已删除',
    primary key (goods_id)
 );
@@ -200,15 +226,23 @@ create index index_product_id on goods
 create table invoice
 (
    invoice_id           bigint not null auto_increment,
-   type                 int comment '1：普通发票   2：增值发票',
-   create_time          datetime,
-   update_time          datetime,
+   order_id             bigint,
+   type                 smallint comment '1：普通发票   2：增值发票',
    title                varchar(100) comment '发票抬头',
-   product_type         int comment '1：办公用品  2：日用品   3：食品',
+   product_type         smallint comment '1：办公用品  2：日用品   3：食品',
+   create_time          datetime,
    primary key (invoice_id)
 );
 
 alter table invoice comment '发票';
+
+/*==============================================================*/
+/* Index: idx_invoice_order_id                                  */
+/*==============================================================*/
+create unique index idx_invoice_order_id on invoice
+(
+   order_id
+);
 
 /*==============================================================*/
 /* Table: order_address                                         */
@@ -216,8 +250,9 @@ alter table invoice comment '发票';
 create table order_address
 (
    id                   bigint not null auto_increment,
-   consigee             varchar(50) comment '收货人',
-   phone_num            varchar(30) comment '收货人电话',
+   order_id             bigint not null,
+   consigee             varchar(50) not null comment '收货人',
+   phone_num            varchar(30) not null comment '收货人电话',
    post_code            varchar(10) comment '邮编',
    address              varchar(200) comment '详细地址',
    province             varchar(50) comment '省',
@@ -226,10 +261,19 @@ create table order_address
    express_id           bigint comment '快递公司id',
    express_name         varchar(50) comment '快递公司名',
    express_no           varchar(50) comment '快递单号',
+   create_time          datetime not null,
    primary key (id)
 );
 
 alter table order_address comment '订单地址表';
+
+/*==============================================================*/
+/* Index: idx_order_address_ordre_id                            */
+/*==============================================================*/
+create unique index idx_order_address_ordre_id on order_address
+(
+   order_id
+);
 
 /*==============================================================*/
 /* Table: order_goods                                           */
@@ -237,32 +281,47 @@ alter table order_address comment '订单地址表';
 create table order_goods
 (
    id                   bigint not null auto_increment,
+   order_id             bigint,
    goods_id             bigint,
+   goods_name           varchar(100) comment '商品名称',
    price                int comment '成交价格',
    quanity              int comment '成交数量',
    create_time          datetime,
-   update_time          datetime,
-   goods_name           varchar(100) comment '商品名称',
    primary key (id)
 );
 
 alter table order_goods comment '订单商品表';
 
 /*==============================================================*/
-/* Table: order_status                                          */
+/* Index: idx_order_goods_order_id                              */
 /*==============================================================*/
-create table order_status
+create index idx_order_goods_order_id on order_goods
+(
+   order_id
+);
+
+/*==============================================================*/
+/* Table: order_history_status                                  */
+/*==============================================================*/
+create table order_history_status
 (
    id                   bigint not null auto_increment,
    order_id             bigint,
    status               smallint comment '状态',
    remark               varchar(500) comment '说明',
    create_time          datetime,
-   pdate_time           datetime,
    primary key (id)
 );
 
-alter table order_status comment '订单状态表';
+alter table order_history_status comment '订单状态表';
+
+/*==============================================================*/
+/* Index: idx_order_history_status_order_id                     */
+/*==============================================================*/
+create index idx_order_history_status_order_id on order_history_status
+(
+   order_id
+);
 
 /*==============================================================*/
 /* Table: packing_list                                          */
@@ -271,7 +330,7 @@ create table packing_list
 (
    id                   bigint not null auto_increment,
    product_id           bigint not null,
-   goods_name           varbinary(50) not null,
+   goods_name           varchar(50) not null,
    num                  smallint not null,
    status               smallint not null comment '1 正常
             2 已删除',
@@ -312,14 +371,16 @@ create table product
    brand_id             bigint comment '品牌ID',
    brand_name           varchar(50) comment '品牌名',
    view_num             bigint comment '浏览量',
-   status               int comment '1上架
+   status               smallint comment '1上架
             2 下架
-            3 待审核
-            4已删除',
-   pay_type             int comment '0 货到付款
-            1 在线支付
-            2 都支持',
-   delevery_amount      int,
+            3初始
+            4 待审核
+            5 拒绝
+            6已删除',
+   pay_type             smallint comment '1 货到付款
+            2 在线支付
+            3 都支持',
+   express_fee          int default 0,
    min_price            int comment '不同规格中的最低价',
    max_price            int comment '不同规格中的最高价',
    pic_url              varchar(100),
@@ -374,7 +435,7 @@ alter table product_cat comment '产品分类';
 create table product_comment
 (
    id                   bigint not null auto_increment,
-   goods_id             bigint,
+   product_id           bigint,
    order_id             bigint,
    user_id              bigint,
    user_name            varchar(100) comment '用户名',
@@ -448,12 +509,12 @@ alter table product_pic comment '商品图片表,用于详细页左边展示的几个典型图片';
 create table shop
 (
    shop_id              bigint not null auto_increment,
-   shop_name            bigint comment '店铺名',
+   shop_name            varchar(100) not null comment '店铺名',
    link_men             varchar(50) comment '联系人',
    phone_num            varchar(200) comment '联系电话',
-   create_time          datetime,
+   create_time          datetime not null,
    update_time          datetime,
-   status               smallint comment '店铺状态',
+   status               smallint not null comment '店铺状态',
    primary key (shop_id)
 );
 
@@ -481,7 +542,8 @@ alter table spec_attr comment '如：颜色属性的红黄蓝等';
 create table trade_order
 (
    order_id             bigint not null auto_increment,
-   kind_id              bigint comment '商品类型ID',
+   shop_id              bigint,
+   user_id              bigint comment '商品类型ID',
    user_name            varchar(50) comment '用户名',
    status               smallint comment '1  初始
             2 支付中
@@ -492,15 +554,15 @@ create table trade_order
             7 已同意退货
             8 退货成功
             9 拒绝退货',
-   pay_type             char(1),
+   pay_type             smallint,
    amount               int comment '订单金额 = 商品金额 + 快递费用',
-   delevery_amount      int comment '快递费',
-   integral             int comment '应付金额= 订单金额-使用积分',
-   version              int,
-   invoice_id           bigint comment '发票id',
+   express_fee          int comment '快递费',
+   use_integral         int comment '应付金额= 订单金额-使用积分',
+   sent_integral        int,
    remark               varchar(100) comment '下单备注',
+   version              int default 0,
    create_time          datetime,
-   last_update_time     datetime,
+   update_time          datetime,
    primary key (order_id)
 );
 
@@ -513,17 +575,19 @@ create table user
 (
    user_id              bigint not null auto_increment,
    rank_id              bigint,
-   user_name            varchar(50) comment '用户名',
+   user_name            varchar(50) not null comment '用户名',
    user_real_name       varchar(50) comment '用户真实姓名',
    phone_num            varchar(30) comment '手机号',
    mail                 varchar(50) comment '邮箱',
    sex                  char(1) comment 'm 男
             f  女',
-   status               smallint comment '1 正常
-            2 黑名单用户',
-   integral             int,
-   create_time          datetime,
+   status               smallint not null comment '1 正常
+            2 已删除
+            3 黑名单',
+   integral             int not null default 0,
+   create_time          datetime not null,
    update_time          datetime,
+   version              int not null default 0,
    primary key (user_id)
 );
 
@@ -535,22 +599,21 @@ alter table user comment '网站会员';
 create table user_address
 (
    address_id           bigint not null auto_increment,
-   user_id              bigint,
-   province             varchar(50) comment '省',
-   city                 varchar(50) comment '市',
-   county               varchar(50) comment ' 县',
-   create_time          datetime,
-   update_time          datetime,
+   user_id              bigint not null,
    post_code            varchar(50) comment '邮编',
-   address              varchar(200) comment '详细地址',
-   consignee            varchar(30) comment '收件人姓名',
-   phone_num            varchar(30) comment '收件人电话',
-   province_id          bigint comment '省地区id',
-   city_id              bigint comment '市地区id',
-   conty_id             bigint comment '县地区id',
-   status               smallint comment '1 默认地址
-            2 常用地址
-            3 已删除地址',
+   address              varchar(200) not null comment '详细地址',
+   consignee            varchar(30) not null comment '收件人姓名',
+   phone_num            varchar(30) not null comment '收件人电话',
+   province_id          bigint not null comment '省地区id',
+   city_id              bigint not null comment '市地区id',
+   county_id            bigint not null comment '县地区id',
+   status               smallint not null comment '1 默认地址
+            2 常用地址',
+   create_time          datetime not null,
+   update_time          datetime not null,
+   province             varchar(50),
+   city                 varchar(50),
+   county               varchar(50),
    primary key (address_id)
 );
 
@@ -562,14 +625,16 @@ alter table user_address comment '常用收货地址';
 create table user_integral
 (
    id                   bigint not null auto_increment,
-   user_id              bigint,
+   user_id              bigint not null,
    order_id             bigint,
    user_name            varchar(50) comment '用户名',
-   create_time          datetime,
-   update_time          datetime,
-   integral             int comment '积分增减',
-   type                 smallint comment '1 消费赠送
-            2 推荐',
+   create_time          datetime not null,
+   integral             int not null comment '积分增减
+            增加积分为正数
+            扣减积分为负数',
+   type                 smallint not null comment '1 消费赠送
+            2 积分消费
+            3 退货退积分',
    remark               varchar(200),
    primary key (id)
 );
@@ -582,11 +647,11 @@ alter table user_integral comment '记录会员每笔积分增减记录';
 create table user_rank
 (
    rank_id              int not null,
-   rank                 int comment '等级数值',
-   rank_name            varchar(50) comment '等级名称',
-   create_time          datetime,
-   update_time          datetime,
-   status               smallint,
+   rank                 int not null comment '等级数值',
+   rank_name            varchar(50) not null comment '等级名称',
+   create_time          datetime not null,
+   update_time          datetime not null,
+   status               smallint not null,
    primary key (rank_id)
 );
 
@@ -610,7 +675,7 @@ alter table product_cat add constraint FK_Reference_11 foreign key (product_id)
 alter table product_cat add constraint FK_Reference_12 foreign key (cat_id)
       references category (cat_id) on delete restrict on update restrict;
 
-alter table product_comment add constraint FK_Reference_14 foreign key (goods_id)
+alter table product_comment add constraint FK_Reference_14 foreign key (product_id)
       references product (product_id) on delete restrict on update restrict;
 
 alter table product_detail add constraint FK_Reference_13 foreign key (product_id)

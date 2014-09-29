@@ -1,9 +1,6 @@
 package com.mission.shop.view.order.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,57 +50,37 @@ public class CreateOrderController {
     private GoodsShowQueryService goodsShowQueryService;
 
     Logger logger = (Logger) LoggerFactory.getLogger(getClass());
-    @RequestMapping("confirmOrder")
-    public String confirmOrder(@RequestParam("goodsId") Long goodsId,ModelMap model,
-                      @RequestParam("num") int num,HttpSession session) {
 
-        User user  = UserUtils.getUser(session) ;
-        List<UserAddress> addressList = userAddressServcie.queryAddressByUserId(user.getUserId());
-
-        List<Area> provinceList = areaService.queryAllProvince();
-
-        try {
-			GoodsView goodsView = goodsShowQueryService.queryGoodsView(goodsId, num);
-			model.addAttribute("goodsView",goodsView);
-		} catch (BusinessException e) {
-			model.addAttribute("errorMessage",e.getDisplayMessage());
-			logger.error("查找找商品信息出错",e);
-			return "common/error";
-		}
-
-        model.addAttribute("addressList",addressList);
-        model.addAttribute("provinceList",provinceList);
-        return "order/confirmOrder";
-    }
     @RequestMapping("settle")
     public String settle(@RequestParam("jsonGoods") String jsonGoods,OrderPO orderPO) {
-
-    	List<BuyedGoods> goodsList = getGoodsList(jsonGoods);
-        Map map = JsonUtil.jsonToObject(jsonGoods);
-        try{
-        	orderPO.setGoodsList(goodsList);
-            createOrderService.createOrder(orderPO) ;
-        } catch (BusinessException e) {
-
-            logger.error("创建订单失败"+map,e);
-        }
-
+//    	List<BuyedGoods> goodsList = getGoodsList(jsonGoods);
+//        Map map = JsonUtil.jsonToObject(jsonGoods);
+//        try{
+//        	orderPO.setGoodsList(goodsList);
+//            createOrderService.createOrder(orderPO) ;
+//        } catch (BusinessException e) {
+//
+//            logger.error("创建订单失败"+map,e);
+//        }
         return "";
     }
-    
+
     
     @SuppressWarnings("rawtypes")
     private List<BuyedGoods> getGoodsList(String jsonGoods){
-		List<Map> list = JsonUtil.json2Object(jsonGoods, List.class);
+		Map map = JsonUtil.jsonToObject(jsonGoods);
 		List<BuyedGoods> goodsList = new ArrayList<BuyedGoods>();
-    	for(Map map:list){
+        Iterator iterator = map.entrySet().iterator();
+        while(iterator.hasNext()){
+    	    Long goodsId =  Long.parseLong((String)iterator.next());
     		BuyedGoods buyedGoods = new BuyedGoods();
-    		buyedGoods.setGoodesId(Long.parseLong((String)map.get("goodsId")));
+    		buyedGoods.setGoodesId(goodsId);
     		buyedGoods.setBuyNum(Integer.parseInt((String)map.get("num")));
-    		buyedGoods.setPrice(Integer.parseInt(NumberUtils.rightMove((String)map.get("price"), 2)));
     		goodsList.add(buyedGoods);
     	}
     	return goodsList;
     }
+
+
     
 }

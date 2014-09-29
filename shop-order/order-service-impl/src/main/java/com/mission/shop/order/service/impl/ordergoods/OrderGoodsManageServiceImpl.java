@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mission.shop.order.service.ordergoods.OrderGoodsManageService;
+import com.mission.shop.product.service.goods.GoodsView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,10 +45,10 @@ public class OrderGoodsManageServiceImpl implements OrderGoodsManageService {
         return orderGoods.getId();
     }
     @Transactional(rollbackFor=Exception.class)
-    public void saveOrderGoods(Long orderId,List<BuyedGoods> list)throws BusinessException{
+    public void saveOrderGoods(Long orderId,List<GoodsView> list)throws BusinessException{
     	
-    	for(BuyedGoods buyedGoods:list){
-    		saveOrderGoods(orderId,buyedGoods.getGoodesId(),buyedGoods.getPrice(),buyedGoods.getBuyNum());
+    	for(GoodsView goodsView:list){
+    		saveOrderGoods(orderId,goodsView.getGoodsId(),goodsView.getPrice(),goodsView.getNum());
     	}
     }
 }

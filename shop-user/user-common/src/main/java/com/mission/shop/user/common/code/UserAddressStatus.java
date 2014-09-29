@@ -7,8 +7,8 @@ package com.mission.shop.user.common.code;
  */
 public enum UserAddressStatus {
 
-	DEFAULT((short)1,"默认地址"),
-    NORMAL((short)2,"常用地址");
+    NORMAL((short)1,"常用地址"),
+    DEFAULT((short)2,"默认地址");
 
     private short code;
     private String name;

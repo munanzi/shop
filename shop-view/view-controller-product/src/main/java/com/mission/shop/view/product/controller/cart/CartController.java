@@ -18,6 +18,7 @@ import com.mission.shop.product.service.cart.CartService;
 import com.mission.shop.product.service.goods.GoodsShowQueryService;
 import com.mission.shop.product.service.goods.GoodsView;
 import com.mission.shop.view.product.util.UserUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller

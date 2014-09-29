@@ -20,7 +20,7 @@
 <body>
 
 
-hello ${userName}
+hello ${userName}     ,,,,,,<a href="${ctx}/cart/init">购物车</a>
 
 
 <table>

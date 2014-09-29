@@ -18,14 +18,18 @@ public class GoodsView {
 	//goods, product,shop 都为正常时为true
 	private boolean isNormalStatus = true;	
 	private String shopName;
-	
+	private Long shopId;
+
 	public String getAmount() {
 		return NumberUtils.leftMove((num*price)+"", 2);
 	}
 
-	public String getPrice() {
+	public String getPriceStr() {
 		return NumberUtils.leftMove(price+"", 2);
 	}
+    public int getPrice(){
+        return price;
+    }
 	public void setPrice(int price) {
 		this.price = price;
 	}
@@ -71,4 +75,12 @@ public class GoodsView {
 	public void setShopName(String shopName) {
 		this.shopName = shopName;
 	}
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
+    }
 }

@@ -17,10 +17,19 @@ public interface GoodsShowQueryService {
      * @throws BusinessException
      */
     public GoodsView queryGoodsView(Long goodsId,int goodsNum)throws BusinessException;
-    
+
+
     /**
      * 查找出用于显示下单页面的商品信息列表
-     * @param List<goodsId,goodsNum>
+     * @param Map<goodsId,goodsNum>
+     * @return Map<店铺名称,goodsview>
+     * @throws BusinessException
+     */
+    public Map<String,List<GoodsView>> queryGoodsView(Map<String,String> goodsMap)throws BusinessException;
+
+    /**
+     * 查找出用于显示下单页面的商品信息列表
+     * @param List<Cart>
      * @return Map<shopName,List<GoodsView>>
      * @throws BusinessException
      */
