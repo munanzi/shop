@@ -24,16 +24,11 @@ public class CategoryController {
 
 	@RequestMapping("index")
 	public String index(Model model){
-		
-		try{
-			Category catetory = categoryService.queryTopCategory();
-			List<Category> list = categoryService.queryCategoryByParent(catetory.getCatId());
-            model.addAttribute("catetory",catetory);
-            model.addAttribute("list",list);
-		}catch(BusinessException e){
-			logger.error("商品分类列表失败",e);
-			return "common/error";
-		}
-		return "page/category/index";
+
+        Category catetory = categoryService.queryTopCategory();
+        List<Category> list = categoryService.queryCategoryByParent(catetory.getCatId());
+        model.addAttribute("catetory",catetory);
+        model.addAttribute("list",list);
+        return "page/category/index";
 	}
 }

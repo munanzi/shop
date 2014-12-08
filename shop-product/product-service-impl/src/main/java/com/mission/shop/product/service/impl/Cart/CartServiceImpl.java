@@ -21,10 +21,10 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private CartMapper cartMapper;
 
-    public Cart addCartGoods(Long userId,Long goodsId,short buyNum){
+    public Cart addCartGoods(Long userId,Long goodsId,int buyNum){
         Cart cart = queryCart(userId,goodsId);
         if(cart!=null){
-            cart.setBuyNum((short)(cart.getBuyNum()+buyNum));
+            cart.setBuyNum((cart.getBuyNum()+buyNum));
             cartMapper.updateByPrimaryKeySelective(cart);
         }else{
             cart = new Cart();

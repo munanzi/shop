@@ -13,6 +13,8 @@ public enum PaymentStatus {
     FAIL((short)4,"支付失败");
 
 
+
+
     private short code;
     private String name;
 

@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE HTML>
 <html lang="zh-cn">
 <head>
@@ -10,7 +9,6 @@
     <title></title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
-    <%@include file="common/lib.jsp" %>
 
 
     <script>
@@ -19,8 +17,6 @@
 </head>
 <body>
 
-
-hello ${userName}     ,,,,,,<a href="${ctx}/cart/init">购物车</a>
 
 
 <table>
@@ -40,25 +36,46 @@ hello ${userName}     ,,,,,,<a href="${ctx}/cart/init">购物车</a>
 </table>
 
 <table>
+    <tr>
+        <c:if test="${productList != null }">
+            <c:forEach var="product" begin="0" end="3" items="${productList}">
+                <c:if test="${product != null }">
 
-    <c:if test="${productList != null }">
-        <c:forEach var="product" begin="0" end="20" items="${productList}">
-            <c:if test="${product != null }">
-                <tr>
                     <td>
                         <a href="${ctx}/product/detail.htm?productId=${product['productId']}" >${product['productName']}</a>
 
-                        ${product['minPrice']} -    ${product['maxPrice']}
+                            ${product['defaultPrice']}
 
 
-                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${imgUrl}/${product.picUrl}">
+                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${staticPath}/${product.picUrl}">
                     </td>
 
-                </tr>
-            </c:if>
-        </c:forEach>
-    </c:if>
 
+                </c:if>
+            </c:forEach>
+
+        </c:if>
+    </tr>
+    <tr>
+        <c:if test="${productList != null }">
+            <c:forEach var="product" begin="3" end="6" items="${productList}">
+                <c:if test="${product != null }">
+
+                    <td>
+                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${staticPath}/${product.picUrl}">
+                        <a href="${ctx}/product/detail.htm?productId=${product['productId']}" >${product['productName']}</a>
+
+                        ${product['defaultPrice']}
+
+
+                    </td>
+
+
+                </c:if>
+            </c:forEach>
+
+        </c:if>
+    </tr>
 </table>
 
 

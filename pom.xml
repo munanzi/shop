@@ -251,11 +251,11 @@
 				<artifactId>jdom</artifactId>
 				<version>${version.jdom}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.exolab</groupId>
-				<artifactId>castor</artifactId>
-				<version>${version.castor}</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>org.exolab</groupId>-->
+				<!--<artifactId>castor</artifactId>-->
+				<!--<version>${version.castor}</version>-->
+			<!--</dependency>-->
 
 			<dependency>
 				<groupId>struts</groupId>
@@ -298,11 +298,11 @@
 				<version>${version.htmlcompressor}</version>
 			</dependency>
 
-			<dependency>
-				<groupId>com.danga</groupId>
-				<artifactId>Memcached-Java-Client</artifactId>
-				<version>${version.memcached}</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>com.danga</groupId>-->
+				<!--<artifactId>Memcached-Java-Client</artifactId>-->
+				<!--<version>${version.memcached}</version>-->
+			<!--</dependency>-->
 
 			<dependency>
 				<groupId>org.im4java</groupId>
@@ -393,13 +393,13 @@
 				<artifactId>spring-aop</artifactId>
 				<version>${version.spring}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-asm</artifactId>
-				<version>${version.spring}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>org.springframework</groupId>-->
+				<!--<artifactId>spring-asm</artifactId>-->
+				<!--<version>${version.spring}</version>-->
+				<!--<type>jar</type>-->
+				<!--<scope>compile</scope>-->
+			<!--</dependency>-->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
@@ -834,61 +834,60 @@
 				<version>${version.itext}</version>
 			</dependency>
 
-			<!-- validate code tools -->
-			<dependency>
-				<groupId>com.google.code</groupId>
-				<artifactId>kaptcha</artifactId>
-				<version>${version.kaptcha}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>com.google.code</groupId>-->
+				<!--<artifactId>kaptcha</artifactId>-->
+				<!--<version>${version.kaptcha}</version>-->
+				<!--<type>jar</type>-->
+				<!--<scope>compile</scope>-->
+			<!--</dependency>-->
 
 			<!-- third partner provide -->
-			<dependency>
-				<groupId>com.emay</groupId>
-				<artifactId>eamy-sms-client</artifactId>
-				<version>${version.emay-sms-client}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.websina</groupId>
-				<artifactId>license</artifactId>
-				<version>${version.websina-license}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay</groupId>
-				<artifactId>alipay</artifactId>
-				<version>${version.alipay}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.umpay</groupId>
-				<artifactId>umpay-sign</artifactId>
-				<version>${version.umpay}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.umpay</groupId>
-				<artifactId>umpay-aes</artifactId>
-				<version>${version.umpay}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.bs.mpsp</groupId>
-				<artifactId>mpsp</artifactId>
-				<version>${version.mpsp}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.ddmap</groupId>
-				<artifactId>ddmap</artifactId>
-				<version>${version.ddmap}</version>
-			</dependency>
-			<dependency>
-				<groupId>beartool</groupId>
-				<artifactId>beartool</artifactId>
-				<version>${version.beartool}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.jconfig</groupId>
-				<artifactId>jconfig</artifactId>
-				<version>${version.jconfig-com}</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>com.emay</groupId>-->
+				<!--<artifactId>eamy-sms-client</artifactId>-->
+				<!--<version>${version.emay-sms-client}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.websina</groupId>-->
+				<!--<artifactId>license</artifactId>-->
+				<!--<version>${version.websina-license}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.alipay</groupId>-->
+				<!--<artifactId>alipay</artifactId>-->
+				<!--<version>${version.alipay}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.umpay</groupId>-->
+				<!--<artifactId>umpay-sign</artifactId>-->
+				<!--<version>${version.umpay}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.umpay</groupId>-->
+				<!--<artifactId>umpay-aes</artifactId>-->
+				<!--<version>${version.umpay}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.bs.mpsp</groupId>-->
+				<!--<artifactId>mpsp</artifactId>-->
+				<!--<version>${version.mpsp}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.ddmap</groupId>-->
+				<!--<artifactId>ddmap</artifactId>-->
+				<!--<version>${version.ddmap}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>beartool</groupId>-->
+				<!--<artifactId>beartool</artifactId>-->
+				<!--<version>${version.beartool}</version>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>com.jconfig</groupId>-->
+				<!--<artifactId>jconfig</artifactId>-->
+				<!--<version>${version.jconfig-com}</version>-->
+			<!--</dependency>-->
 
 			<!-- test -->
 			<dependency>
@@ -921,7 +920,11 @@
 				<version>${version.dbunit}</version>
 				<scope>test</scope>
 			</dependency>
-
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>sitemesh</artifactId>
+                <version>2.4.2</version>
+            </dependency>
 
 		</dependencies>
 

@@ -44,4 +44,9 @@ public class LoginController {
         modelMap.addAttribute("userName",userName);
 		return "forward:category/index.htm";
 	}
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request,ModelMap modelMap){
+        request.getSession().removeAttribute(UserConstants.SESSION_USER);
+		return "forward:category/index.htm";
+	}
 }

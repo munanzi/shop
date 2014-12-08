@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@include file="../common/head.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <!DOCTYPE HTML>
 <html lang="zh-cn">
 <head>
@@ -7,43 +9,46 @@
     <title></title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
-    <%@include file="../common/lib.jsp" %>
 
 
     <script>
         function buy(){
+            $("#num").val($("#buyNum").val());
             document.orderForm.submit();
         }
 
         function addCart(){
-
+            var goodsId=$("#goodsId").val();
+            var num = $("#buyNum").val();
+            $.post("${ctx }/cart/add", {goodsId:goodsId,num:num},function(data) {
+                if(data.success=="true"){
+                    alert("加入购物成功");
+                }else{
+                    alert("加入购物失败");
+                }
+            });
         }
     </script>
 
 </head>
 <body>
 <form name="orderForm" action="${ctx}/order/confirmOrder.htm" method="post">
-<input type="hidden" id="goodsId" name="goodsId" value="1" >
-<input type="hidden" id="num" name="num" value="2" >
-<input type="hidden" id="price" name="price" value="159" >
-<input type="hidden" id="addressId" name="addressId" value="1" >
-<input type="hidden" id="price" name="price" value="159" >
-<input type="hidden" id="price" name="price" value="159" >
-<input type="hidden" id="price" name="price" value="159" >
+<input type="hidden" id="goodsId" name="goodsId" value="${fullProduct.product.productId}" >
+<input type="hidden" id="num" name="num" >
 </form>
       <div style="text-align:center; margin-left:auto; margin-right:auto">
 ${fullProduct.product.productTitle}
 <br/>
 <br/>
 
-              价格： ${fullProduct.product.minPrice} - ${fullProduct.product.maxPrice}
+              价格： ${fullProduct.product.defaultPrice}
     <br/>
               销量：  ${fullProduct.product.sales}
-    <%--<c:if test="${fullProduct.product.sales != fullProduct.goods.sales }">--%>
-                <%--,此款销量：${fullProduct.goods.sales}--%>
-    <%--</c:if>--%>
+    <c:if test="${fullProduct.product.sales != fullProduct.goods.sales }">
+                ,此款销量：${fullProduct.goods.sales}
+    </c:if>
     <br/>
-              <%--库存 ：  ${fullProduct.goods.stock}--%>
+              库存 ：  ${fullProduct.goods.stock}
     <br/>
               累计评价：   ${fullProduct.product.commentTimes}
     <br/>
@@ -69,12 +74,13 @@ ${fullProduct.product.productTitle}
     </c:if>
 
 </table>
+    购买数量：<input type="text" id="buyNum" value="1"/>
 <br/>
     <input type="button" id="buy" value="立即购买" onclick="buy();"/>
-    <input type="button" id="addCart" value="加入购物车" onclick="addCart"/>
+    <input type="button" id="addCart" value="加入购物车" onclick="addCart();"/>
 <br/>
     <form name="buyForm" action="order/buy.htm">
-       <input type="hidden" name="goodsId" value="1">
+       <input type="hidden" name="goodsId" value="${fullProduct.product.defaultGoodsId}">
     </form>
 <br/>
 <table  border="1" style="text-align:center; margin-left:auto; margin-right:auto">
@@ -145,7 +151,7 @@ ${fullProduct.product.productTitle}
             <c:if test="${productPic != null }">
                 <tr>
                     <td>
-                        <img width="400" height="280" alt="商品图片" title="${productPic.imageName}" src="${imgUrl}/${productPic.url}">
+                        <img width="400" height="280" alt="商品图片" title="${productPic.imageName}" src="${staticPath}/${productPic.url}">
                     </td>
                 </tr>
             </c:if>

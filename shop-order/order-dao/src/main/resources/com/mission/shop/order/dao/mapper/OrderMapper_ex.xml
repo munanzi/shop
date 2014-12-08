@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mission.shop.order.dao.mapper.OrderMapper">
+    <resultMap id="QueryOrderMap" type="com.mission.shop.order.dao.model.QueryOrderRO">
+        <id column="order_id" jdbcType="BIGINT" property="orderId" />
+        <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+        <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="seller_user_id" jdbcType="BIGINT" property="sellerUserId" />
+        <result column="seller_user_name" jdbcType="VARCHAR" property="sellerUserName" />
+        <result column="pay_type" jdbcType="SMALLINT" property="payType" />
+        <result column="status" jdbcType="SMALLINT" property="status" />
+        <result column="amount" jdbcType="INTEGER" property="amount" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="price" jdbcType="INTEGER" property="price" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    </resultMap>
+
+
+    <select id="queryOrder" parameterType="com.mission.shop.order.dao.model.QueryOrderPO" resultMap="QueryOrderMap">
+
+    select
+    trade.order_id, trade.shop_id, trade.shop_name, trade.user_id, trade.user_name,
+    trade.seller_user_id, trade.seller_user_name,
+    trade.status, trade.pay_type, trade.amount,  trade.create_time,
+    goods.goods_name,goods.price,goods.num,goods.pic_url
+    from trade_order trade,order_goods goods
+    <where>
+        trade.order_id=goods.order_id
+        <if test="orderId != null">
+          and  trade.order_id = #{orderId}
+        </if>
+        <if test="buyerId != null">
+            and  trade.user_id = #{buyerId}
+        </if>
+        <if test="sellerId != null">
+          and  trade.seller_user_id = #{sellerId}
+        </if>
+        <if test="productName != null and productName !=''">
+          and  goods.goods_name like "%"#{productName}"%"
+        </if>
+        <if test="beginTime != null">
+          and  trade.create_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null">
+          and  trade.create_time &lt;= #{endTime}
+        </if>
+        <if test="status != null">
+          and  trade.status = #{status}
+        </if>
+        limit #{pageSize}
+        <if test="skipNum != null">
+            offset #{skipNum};
+        </if>
+    </where>
+</select>
+
+    <select id="countOrder" parameterType="com.mission.shop.order.dao.model.QueryOrderPO" resultType="java.lang.Integer">
+
+        select
+          count(*)
+        from trade_order trade,order_goods goods
+        <where>
+            trade.order_id=goods.order_id
+            <if test="orderId != null">
+                and  trade.order_id = #{orderId}
+            </if>
+            <if test="buyerId != null">
+                and  trade.user_id = #{buyerId}
+            </if>
+            <if test="sellerId != null">
+                and  trade.seller_user_id = #{sellerId}
+            </if>
+            <if test="productName != null and productName !=''">
+                and  goods.goods_name like "%"#{productName}"%"
+            </if>
+            <if test="beginTime != null">
+                and  trade.create_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and  trade.create_time &lt;= #{endTime}
+            </if>
+            <if test="status != null">
+                and  trade.status = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>

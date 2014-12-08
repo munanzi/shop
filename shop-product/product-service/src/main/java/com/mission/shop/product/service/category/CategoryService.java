@@ -15,8 +15,16 @@ public interface CategoryService {
 	 */
 	public Category queryTopCategory();
 
-	
-	/**
+
+    /**
+     *   根据层级和分类名称查找分类
+     * @param level  层级
+     * @param categeryName  分类名称
+     * @return
+     */
+    public Category queryCategory(short level,String categeryName);
+
+    /**
 	 * 查询子分类
 
 	 * @return

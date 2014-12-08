@@ -65,6 +65,9 @@
 		<property name="defaultErrorView" value="common/error" />
 		<property name="exceptionMappings">
 			<props>
+                <prop key="com.mission.shop.base.common.exception.UserNotLoginException">
+                    login
+                </prop>
 				<prop key="java.lang.Exception">
 					common/error
 				</prop>

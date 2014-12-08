@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mission.shop.order.service.ordergoods.OrderGoodsManageService;
+import com.mission.shop.product.dao.model.Product;
 import com.mission.shop.product.service.goods.GoodsView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,10 @@ public class OrderGoodsManageServiceImpl implements OrderGoodsManageService {
         orderGoods.setGoodsId(goodsId);
         orderGoods.setOrderId(orderId);
         orderGoods.setPrice(price);
-        orderGoods.setQuanity(num);
-        String productName = goodsQueryService.queryProductById(orderGoods.getGoodsId()).getProductName();
-        orderGoods.setGoodsName(productName);
+        orderGoods.setNum(num);
+        Product product = goodsQueryService.queryProductById(orderGoods.getGoodsId());
+        orderGoods.setGoodsName(product.getProductName());
+        orderGoods.setPicUrl(product.getPicUrl());
         orderGoodsMapper.insert(orderGoods);
         return orderGoods.getId();
     }

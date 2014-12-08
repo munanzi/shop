@@ -36,8 +36,8 @@ public class FullProductServiceImpl implements FullProductService {
     private ProductAttrService productAttrService;
     @Autowired
     private ProductCommentService productCommentService;
-//    @Autowired
-//    private GoodsQueryService goodsQueryService;
+    @Autowired
+    private GoodsQueryService goodsQueryService;
     @Autowired
     private ProductPicService  productPicService;
     @Autowired
@@ -48,7 +48,7 @@ public class FullProductServiceImpl implements FullProductService {
 
         FullProduct fullProduct = new FullProduct();
         Product product = productQueryService.QueryProduct(productId);
-//        Goods goods = goodsQueryService.queryMostSailByProductId(productId);
+        Goods goods = goodsQueryService.queryGoodsById(product.getDefaultGoodsId());
         ProductDetail productDetail = productDetailService.queryByProductId(productId);
         List<ProductComment> commentList = productCommentService.queryByProductId(productId);
         List<ProductAttr> usualAttrList =  productAttrService.queryUsualAttrByProductId(productId);
@@ -64,13 +64,13 @@ public class FullProductServiceImpl implements FullProductService {
         fullProduct.setGroupAttrsMap(attrMap);
         fullProduct.setDetailPicList(detailPicList);
         fullProduct.setPackingList(packingList);
-//        fullProduct.setGoods(goods);
-//        if(StringUtils.isEmpty(goods.getSpec()))  {
-//            fullProduct.setSpecMap(new HashMap()) ;
-//        } else{
-//            Map map = JsonUtil.jsonToObject(goods.getSpec());
-//            fullProduct.setSpecMap(map);
-//        }
+        fullProduct.setGoods(goods);
+        if(StringUtils.isEmpty(goods.getSpec()))  {
+            fullProduct.setSpecMap(new HashMap()) ;
+        } else{
+            Map map = JsonUtil.jsonToObject(goods.getSpec());
+            fullProduct.setSpecMap(map);
+        }
         return fullProduct;
     }
 

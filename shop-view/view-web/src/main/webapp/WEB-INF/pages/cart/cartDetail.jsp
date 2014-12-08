@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@include file="../common/head.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE HTML>
 <html lang="zh-cn">
 <head>
@@ -7,7 +10,6 @@
     <title></title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
-    <%@include file="../common/lib.jsp" %>
     <script type="text/javascript" src="${ctx }/common/libs/jquery.json2.5.1.js"></script>
 
     <script type="text/javascript">
@@ -58,12 +60,12 @@
               <tr>
                   <td><input type="checkbox" name="goods" value="${goodsView.goodsId}"> </td>
                   <td> ${goodsView.productTitle}</td>
-              
+
                   <td> ${goodsView.price}</td>
 
                   <td><input type="text" id="goods${goodsView.goodsId}" name="goodsNum" value="${goodsView.num}">  </td>
-              
-                  <td> ${goodsView.amount}</td> 
+
+                  <td> ${goodsView.amount}</td>
               </tr>
           </c:forEach>
         </table>

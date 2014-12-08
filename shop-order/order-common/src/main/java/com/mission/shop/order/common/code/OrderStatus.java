@@ -1,5 +1,8 @@
 package com.mission.shop.order.common.code;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * User: hexizheng@163.com
  * Date: 14-6-24
@@ -18,27 +21,33 @@ public enum OrderStatus {
     REFUSE_REFUND((short)9,"拒绝退货");
 
 
-    private short code;
-    private String name;
+    private final short code;
+    private final String name;
 
     private OrderStatus(short code, String name) {
         this.code = code;
         this.name = name;
+
     }
+
+
 
     public short getCode() {
         return code;
-    }
-
-    public void setCode(short code) {
-        this.code = code;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public static Map<Short,String> getOrderStatusMap(){
+        Map<Short,String> map = new HashMap<Short,String>();
+        for(OrderStatus status:values()){
+            map.put(status.getCode(),status.getName());
+        }
+        return map;
     }
+
+
 }

@@ -38,7 +38,7 @@ public class CategoryController {
     
     
 	@RequestMapping("index")
-	public String index(String catId,Model model,HttpSession session){
+	public String index(Model model,HttpSession session){
 
         User user = UserUtils.getUser(session);
 		
@@ -49,12 +49,13 @@ public class CategoryController {
         if(user!=null){
              model.addAttribute("userName",user.getUserName());
         }
-		
 
-        if(StringUtils.isNotEmpty(catId)){
-            List<Product> list = productCatService.queryProductByCatId(Long.parseLong(catId));
-            model.addAttribute("productList",list);
+        Category category = categoryService.queryCategory((short)1,"手机");
+        if(category!=null){
+            List<Product> productList = productCatService.queryProductByCatId(category.getCatId());
+            model.addAttribute("productList",productList);
         }
+
 
 		return "index";
 	}

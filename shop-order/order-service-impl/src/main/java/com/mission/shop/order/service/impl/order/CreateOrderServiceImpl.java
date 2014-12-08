@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mission.shop.base.common.utils.StringUtils;
+import com.mission.shop.product.dao.model.Product;
 import com.mission.shop.product.service.cart.CartService;
 import com.mission.shop.product.service.goods.GoodsView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,11 @@ public class CreateOrderServiceImpl implements CreateOrderService {
     	
 
         Order order = new Order();
-        order.setShopId(list.get(0).getShopId());
+        Product product = goodsQueryService.queryProductById(list.get(0).getGoodsId());
+        order.setShopId(product.getShopId());
+        order.setShopName(product.getShopName());
+        order.setSellerUserId(product.getSellerId());
+        order.setSellerUserName(product.getSellerUserName());
         order.setPayType(payTypeService.getPayType().getCode());
         order.setRemark(orderPO.getRemark());
         order.setUserId(orderPO.getUserId());

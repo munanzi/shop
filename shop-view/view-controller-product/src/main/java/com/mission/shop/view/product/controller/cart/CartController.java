@@ -1,5 +1,6 @@
 package com.mission.shop.view.product.controller.cart;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import com.mission.shop.product.service.goods.GoodsShowQueryService;
 import com.mission.shop.product.service.goods.GoodsView;
 import com.mission.shop.view.product.util.UserUtils;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -45,6 +47,21 @@ public class CartController {
 			return "common/error";
 		}
 		return "cart/cartDetail";
+	}
+	@RequestMapping("add")
+    @ResponseBody
+	public Map<String,String> add(@RequestParam("goodsId") long goodsId,@RequestParam("num") int num,ModelMap model,HttpSession session){
+        Map<String,String> map = new HashMap<String,String>();
+		try {
+            cartService.addCartGoods(UserUtils.getUserId(session),goodsId,num);
+            map.put("success","true");
+		} catch (Exception e) {
+
+			logger.error("加入购物车失败",e);
+            map.put("success","false");
+            map.put("message","加入购物车失败");
+		}
+		return map;
 	}
 
 }

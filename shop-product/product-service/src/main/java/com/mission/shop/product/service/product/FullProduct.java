@@ -13,8 +13,8 @@ import java.util.Map;
 public class FullProduct {
 
     private Product product;
-//    private Goods goods;
-//    private Map specMap;
+    private Goods goods;
+    private Map specMap;
     private ProductDetail productDetail;
     private List<ProductAttr> usualAttrList;
     private Map<String,List<ProductAttr>> groupAttrsMap;
@@ -33,21 +33,21 @@ public class FullProduct {
         this.product = product;
     }
 
-//    public Goods getGoods() {
-//        return goods;
-//    }
-//
-//    public void setGoods(Goods goods) {
-//        this.goods = goods;
-//    }
-//
-//    public Map getSpecMap() {
-//        return specMap;
-//    }
-//
-//    public void setSpecMap(Map specMap) {
-//        this.specMap = specMap;
-//    }
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public Map getSpecMap() {
+        return specMap;
+    }
+
+    public void setSpecMap(Map specMap) {
+        this.specMap = specMap;
+    }
 
     public ProductDetail getProductDetail() {
         return productDetail;

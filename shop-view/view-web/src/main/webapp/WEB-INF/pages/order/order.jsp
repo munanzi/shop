@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@include file="../common/head.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <!DOCTYPE HTML>
 <html lang="zh-cn">
 <head>
@@ -7,7 +9,6 @@
     <title></title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
-    <%@include file="../common/lib.jsp" %>
 
 
     <script>

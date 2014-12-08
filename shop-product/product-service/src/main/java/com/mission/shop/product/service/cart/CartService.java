@@ -23,7 +23,7 @@ public interface CartService {
      * @param goodsId
      * @param buyNum
      */
-    public Cart addCartGoods(Long userId,Long goodsId,short buyNum);
+    public Cart addCartGoods(Long userId,Long goodsId,int buyNum);
 
     /**
      * @param userId
