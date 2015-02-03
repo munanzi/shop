@@ -127,7 +127,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
         //订单历史
         saveOrderHistory(order);
         //删除购物车
-        deleteCart(order.getUserId(),order.getOrderId());
+        deleteCart(order.getUserId(),list);
         return  order;
     }
 
@@ -205,11 +205,13 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
     /**
      * 删除购物车中商品
-     * @param orderId
      */
-    private void deleteCart(long userId,long orderId){
-        cartService.deleteCartGoods(userId,orderId);
+    private void deleteCart(long userId,List<GoodsView> list){
+        for(GoodsView goodsView:list){
+            cartService.deleteCartGoods(userId,goodsView.getGoodsId());
+        }
     }
+
 
 
     /**

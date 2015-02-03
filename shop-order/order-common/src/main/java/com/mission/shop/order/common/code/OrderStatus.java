@@ -17,8 +17,9 @@ public enum OrderStatus {
     SUCCESS((short)5,"交易成功") ,
     APPLY_REFUND((short)6,"退货申请中"),
     AGREE_REFUND((short)7,"已同意退货"),
-    REFUD_SUCCESS((short)8,"退货成功"),
-    REFUSE_REFUND((short)9,"拒绝退货");
+    REFUND_SUCCESS((short)8,"退货成功"),
+    REFUSE_REFUND((short)9,"拒绝退货"),
+    CLOSED((short)10,"交易关闭");
 
 
     private final short code;
@@ -29,8 +30,6 @@ public enum OrderStatus {
         this.name = name;
 
     }
-
-
 
     public short getCode() {
         return code;

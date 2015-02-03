@@ -6977,10 +6977,10 @@ n 否</a:Comment>
 <o:Column Id="o268">
 <a:ObjectID>FBD903CC-1E02-4312-B1CD-35D163C47698</a:ObjectID>
 <a:Name>收货人</a:Name>
-<a:Code>consigee</a:Code>
+<a:Code>consignee</a:Code>
 <a:CreationDate>1402572259</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1407330756</a:ModificationDate>
+<a:ModificationDate>1415670778</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:Comment>收货人</a:Comment>
 <a:DataType>varchar(50)</a:DataType>

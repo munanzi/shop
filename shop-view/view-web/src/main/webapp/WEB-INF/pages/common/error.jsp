@@ -4,8 +4,13 @@
 <head>
     </head>
 <body>
-${errorMessage }
 
+<c:if test="empty ${exception.message }">
+    <p>操作失败</p>
+</c:if>
+<c:if test="${exception.message!=''}">
+    <p>${exception.message }</p>
+</c:if>
 
 error jsp
 </body>

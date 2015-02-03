@@ -1,7 +1,10 @@
 package com.mission.shop.order.service.impl.orderaddress;
 
 import java.util.Date;
+import java.util.List;
 
+import com.mission.shop.base.common.exception.SystemException;
+import com.mission.shop.order.dao.model.OrderAddressExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,22 @@ public class OrderAddressServiceImpl implements OrderAddressService {
     @Autowired
     private UserAddressServcie userAddressServcie;
 
+
+    @Override
+    public OrderAddress queryOrderAddress(Long orderId){
+        if(orderId==null){
+            throw new SystemException("orderId 不能为空");
+        }
+        OrderAddressExample example = new OrderAddressExample();
+        example.createCriteria().andOrderIdEqualTo(orderId);
+
+        List<OrderAddress> list = orderAddressMapper.selectByExample(example);
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
+
+    }
     @Override
     public Long saveOrderAddress(Long orderId,Long userAddressId) throws BusinessException{
         UserAddress userAddress = userAddressServcie.queryById(userAddressId);
@@ -39,7 +58,7 @@ public class OrderAddressServiceImpl implements OrderAddressService {
         orderAddress.setCounty(areaService.queryById(userAddress.getCountyId()).getAreaName());
         orderAddress.setAddress(userAddress.getAddress());
         orderAddress.setPhoneNum(userAddress.getPhoneNum());
-        orderAddress.setConsigee(userAddress.getConsignee());
+        orderAddress.setConsignee(userAddress.getConsignee());
         orderAddress.setPostCode(userAddress.getPostCode());
         orderAddress.setCreateTime(new Date());
         orderAddressMapper.insert(orderAddress);

@@ -131,8 +131,8 @@ function queryOrder(){
 <tbody>
     <tr class="subTitleInfo">
         <td colspan="5" class="clearfix">
-            <span class="fl">订单编号：${map.value[0].orderId}</span>
-            <span class="fl">${map.key}</span>
+            <span class="fl">订单编号：${map.key}</span>
+            <span class="fl">${map.value[0].shopName}</span>
             <span class="fr">下单时间：<fmt:formatDate value="${map.value[0].createTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </span>
         </td>
     </tr>
@@ -163,9 +163,16 @@ function queryOrder(){
                 <td><div class="custOrderState">${statusMap[queryOrderRO.status]}</div></td>
                 <td class="rbor">
                     <div class="custOrderOption">
-                        <a href="" target="_self">取消交易</a>
-                        <a href="" target="_self">订单详情</a>
-                        <a href="" target="_self">标记为发货</a>
+                        <c:if test="${queryOrderRO.status==1}">
+                            <a href="" target="_self">取消交易</a>
+                        </c:if>
+                        <a href="${ctx}/userCenter/orderDetail?orderId=${queryOrderRO.orderId}" target="_self">订单详情</a>
+                        <c:if test="${queryOrderRO.status==4}">
+                            <a href="" target="_self">申请退货</a>
+                        </c:if>
+                        <c:if test="${queryOrderRO.status==3}">
+                            <a href="" target="_self">待发货</a>
+                        </c:if>
                     </div>
                 </td>
             </tr>

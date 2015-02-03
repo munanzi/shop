@@ -47,7 +47,7 @@
                             ${product['defaultPrice']}
 
 
-                        <img width="400" height="280" alt="商品图片" title="商品图片" src="${staticPath}/${product.picUrl}">
+                        <img width="90" height="90" alt="商品图片" title="商品图片" src="${staticPath}/${product.picUrl}">
                     </td>
 
 

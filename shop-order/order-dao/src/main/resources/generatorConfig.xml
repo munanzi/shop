@@ -35,21 +35,21 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-     <table schema=""   tableName="trade_order" domainObjectName="Order">
-           <generatedKey column="order_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
-    </table>
+<!--      <table schema=""   tableName="trade_order" domainObjectName="Order"> -->
+<!--            <generatedKey column="order_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
+<!--     </table> -->
 <!--      <table schema=""   tableName="order_history_status" domainObjectName=""> -->
 <!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
 <!--     </table> -->
 <!--      <table schema=""   tableName="express" domainObjectName=""> -->
 <!--            <generatedKey column="express_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
 <!--     </table> -->
-<!--      <table schema=""   tableName="order_address" domainObjectName=""> -->
-<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
-<!--     </table> -->
-     <table schema=""   tableName="order_goods" domainObjectName="">
+     <table schema=""   tableName="order_address" domainObjectName="">
            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
     </table>
+<!--      <table schema=""   tableName="order_goods" domainObjectName=""> -->
+<!--            <generatedKey column="id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
+<!--     </table> -->
 <!--      <table schema=""   tableName="invoice" domainObjectName=""> -->
 <!--            <generatedKey column="invoice_id"  sqlStatement="SELECT LAST_INSERT_ID()" identity="true" /> -->
 <!--     </table> -->

@@ -1,23 +1,23 @@
 package com.mission.shop.view.order.controller.usercenter;
 
+import com.mission.shop.base.common.exception.BusinessException;
 import com.mission.shop.base.common.page.Pager;
 import com.mission.shop.order.common.code.OrderStatus;
-import com.mission.shop.order.dao.model.Order;
-import com.mission.shop.order.dao.model.QueryOrderPO;
-import com.mission.shop.order.dao.model.QueryOrderRO;
+import com.mission.shop.order.dao.model.*;
 import com.mission.shop.order.service.impl.order.OrderQueryServiceImpl;
 import com.mission.shop.order.service.order.OrderQueryService;
+import com.mission.shop.order.service.orderaddress.OrderAddressService;
+import com.mission.shop.order.service.ordergoods.OrderGoodsQueryService;
 import com.mission.shop.view.order.util.UserUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: hexizheng@163.com
@@ -30,6 +30,14 @@ public class UserOrderController {
 
     @Autowired
     private OrderQueryService orderQueryService;
+
+    @Autowired
+    private OrderGoodsQueryService orderGoodsQueryService;
+
+    @Autowired
+    private OrderAddressService orderAddressService;
+
+    private Logger logger = (Logger) LoggerFactory.getLogger(getClass());
 
     @RequestMapping("orderList")
     public String orderlist(QueryOrderPO queryOrderPO,Pager pager,HttpSession session,ModelMap model){
@@ -49,7 +57,7 @@ public class UserOrderController {
         queryOrderPO.setPageSize(pager.getPageSize());
 
         List<QueryOrderRO> orderList = orderQueryService.queryOrder(queryOrderPO);
-        Map<String,List<QueryOrderRO>> orderMap = getOrderMap(orderList);
+        Map<Long,List<QueryOrderRO>> orderMap = getOrderMap(orderList);
         model.addAttribute("orderMap",orderMap);
         model.addAttribute("queryOrderPO",queryOrderPO);
         model.addAttribute("statusMap", OrderStatus.getOrderStatusMap());
@@ -68,18 +76,42 @@ public class UserOrderController {
      * @param list
      * @return Map<String,List<QueryOrderRO>>
      */
-    private Map<String,List<QueryOrderRO>> getOrderMap(List<QueryOrderRO> list){
-        Map<String,List<QueryOrderRO>> map = new HashMap();
+    private Map<Long,List<QueryOrderRO>> getOrderMap(List<QueryOrderRO> list){
+        Map<Long,List<QueryOrderRO>> map = new TreeMap(Collections.reverseOrder());
         for(QueryOrderRO queryOrderRO:list){
-            String shopName = queryOrderRO.getShopName();
-            list = map.get(shopName);
+            Long orderId = queryOrderRO.getOrderId();
+            list = map.get(orderId);
             if(list==null){
                 list = new ArrayList<QueryOrderRO>();
             }
             list.add(queryOrderRO);
-            map.put(shopName,list);
+            map.put(orderId,list);
 
         }
         return map;
     }
+
+
+
+
+    @RequestMapping("orderDetail")
+    public String orderDetail(long orderId,HttpSession session,ModelMap model){
+        try {
+            Order order = orderQueryService.queryOrderbyOrderId(orderId);
+            List<OrderGoods> goodsList = orderGoodsQueryService.queryOrderGoodsByOrderId(orderId);
+            OrderAddress orderAddress = orderAddressService.queryOrderAddress(orderId);
+
+            model.addAttribute("order",order);
+            model.addAttribute("goodsList",goodsList);
+            model.addAttribute("orderAddress",orderAddress);
+            model.addAttribute("statusMap", OrderStatus.getOrderStatusMap());
+
+        } catch (BusinessException e) {
+            logger.error("查询订单出错",e);
+            return "common/error";
+        }
+
+        return "order/userCenter/orderDetail";
+    }
+
 }

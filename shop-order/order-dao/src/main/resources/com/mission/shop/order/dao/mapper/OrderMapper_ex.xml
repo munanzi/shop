@@ -51,11 +51,16 @@
         <if test="status != null">
           and  trade.status = #{status}
         </if>
+
+        order by trade.order_id desc
+
         limit #{pageSize}
         <if test="skipNum != null">
             offset #{skipNum};
         </if>
+
     </where>
+
 </select>
 
     <select id="countOrder" parameterType="com.mission.shop.order.dao.model.QueryOrderPO" resultType="java.lang.Integer">

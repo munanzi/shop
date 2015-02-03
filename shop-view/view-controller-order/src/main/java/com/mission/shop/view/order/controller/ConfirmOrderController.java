@@ -46,7 +46,7 @@ public class ConfirmOrderController {
     @Autowired
     private GoodsShowQueryService goodsShowQueryService;
 
-    Logger logger = (Logger) LoggerFactory.getLogger(getClass());
+    private Logger logger = (Logger) LoggerFactory.getLogger(getClass());
     @RequestMapping("confirmOrder")
     public String confirmOrder(@RequestParam("goodsId") String goodsId,ModelMap model,
                       @RequestParam("num") String num,HttpSession session) {
